@@ -17,8 +17,11 @@
 # include <readline/history.h>
 # include <fcntl.h>
 
-# define ERROR_CMD "Command not found\n"
+//retourne 1 en cas de probleme mineurs, si la commande ne peut pas acceder au subdirectory
+# define ERR_FILE_DIR 1 "No such file or directory\n"
+//
+# define ERROR_
 
-
+int		print_errors(char *str);
 
 #endif
