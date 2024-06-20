@@ -15,4 +15,13 @@ il y a des operateurs de controle ou de redirection, un operateur contient au mo
 non quoted.
 
 
-slaut commen ca va
+
+push le travail sur sa branche local 
+
+git push origin + nom de la branche personnelle.
+
+
+Pull le travail qui a ete push sur une branche personnelle
+
+git switch nom de la branche
+git pull origin nom de la branche sur laquelle pull.
