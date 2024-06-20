@@ -1,7 +1,17 @@
-Shells also provide a small set of built-in commands (builtins)
-implementing functionality impossible or inconvenient to obtain via separate utilities.
-For example, cd, break, continue, and exec cannot be implemented outside of the shell
-because they directly manipulate the shell itself.
-The history, getopts, kill, or pwd builtins, among others,
-could be implemented in separate utilities, but they are more convenient
-to use as builtin commands.
+builtins
+
+une commande qui est directment implementee dans bash, tu peux taper: type ls : te dis
+directement si c est une builtin ou le bash affiche un chemin c est que ce n est pas un builtin
+
+Metacharacter
+
+un caractere qui quand il est pas entre quote ' ' separe les mots, une espace un tab une nouvelle
+ligne, ou un de ces caracteres |, &, ;, (), <>,
+
+
+operateurs
+
+il y a des operateurs de controle ou de redirection, un operateur contient au moins un metacaractere
+non quoted.
+
+
