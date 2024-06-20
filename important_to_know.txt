@@ -15,3 +15,4 @@ il y a des operateurs de controle ou de redirection, un operateur contient au mo
 non quoted.
 
 
+slaut commen ca va
