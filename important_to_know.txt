@@ -25,3 +25,6 @@ Pull le travail qui a ete push sur une branche personnelle
 
 git switch nom de la branche
 git pull origin nom de la branche sur laquelle pull.
+
+merge depuis la branche personnelle
+
