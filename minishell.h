@@ -22,6 +22,31 @@
 //
 # define ERROR_
 
+
+typedef struct s_tocken
+{
+    t_args      *arg;
+    t_cmd       *cmd;
+    t_sep       *sep;
+}               t_tocken;
+
+typedef struct s_args
+{
+
+}               t_args;
+
+typedef struct s_cmd
+{
+
+}               t_cmd;
+
+typedef struct s_sep
+{
+
+}               t_sep;
+
+
+
 int		print_errors(char *str);
 
 #endif
