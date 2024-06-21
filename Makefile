@@ -15,13 +15,13 @@ $(NAME): $(OBJECTS)
 	$(CC) $(CFLAGS) $(FLAGS) -c $< -o $@
 
 clean:
-	rm -f $(NAME) $(OBJECT) $(OBJ_B)
+	rm -f $(NAME) $(OBJECT)
 
 fclean: clean
-	rm -f $(NAME) $(NAME_BONUS)
+	rm -f $(NAME)
 
 re: clean fclean all
 
-rebonus: fclean bonus
+rebonus: fclean
 
 .PHONY: all clean fclean re
