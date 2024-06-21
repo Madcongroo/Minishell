@@ -2,26 +2,25 @@ NAME = Minishell
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror
 FLAGS += -I$(HOME)/.brew/opt/readline/include
-READLINE += -L$(HOME)/.brew/opt/readline/lib
-SRCS = minshell.c
+READLINE += -L$(HOME)/.brew/opt/readline/lib -lreadline -arch arm64
+SRCS = minishell.c \
+
 OBJECTS = $(SRCS:.c=.o)
 
 all: $(NAME)
 
 $(NAME): $(OBJECTS)
-	$(CC) $(OBJECT) $(READLINE) -o $(NAME)
+	$(CC) $(OBJECTS) -o $(NAME) $(READLINE)
 
 %.o: %.c
 	$(CC) $(CFLAGS) $(FLAGS) -c $< -o $@
 
 clean:
-	rm -f $(NAME) $(OBJECT)
+	rm -f $(NAME) $(OBJECTS)
 
 fclean: clean
 	rm -f $(NAME)
 
 re: clean fclean all
-
-rebonus: fclean
 
 .PHONY: all clean fclean re
