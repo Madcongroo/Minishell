@@ -1,0 +1,28 @@
+PARSING:
+- tokenisation
+- parser: interpreter quoi faire avec chaque token
+
+check_error_parsing
+- check unknown token
+- check semantique error: les token forme une ligne de commande valable?
+
+
+processing_cmd:
+- variable d'environnement trouver path
+- concatenate args?
+
+processing_redirection
+- assigner fd a la commande
+- faire pipe: mettre output dans fichier suivant
+- ouvrir fichier suivant
+
+EXECUTION:
+???
+
+remove_token
+???
+
+reset_prompt
+
+
+
