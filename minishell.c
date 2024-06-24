@@ -23,7 +23,7 @@ int	main(int argc, char **argv, char **envp)
 	char		*line;
 	t_tocken	*tocken;
 
-
+	tocken = NULL;
 	prompt = "Minishell> ";
 	while (1)
 	{
