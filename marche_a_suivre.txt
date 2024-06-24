@@ -1,28 +1,42 @@
 PARSING:
-- tokenisation
-- parser: interpreter quoi faire avec chaque token
+- Tokenisation
+Objectif : Diviser la ligne de commande saisie par l'utilisateur en éléments individuels appelés tokens (comme les commandes, arguments, et opérateurs de redirection).
 
-check_error_parsing
-- check unknown token
-- check semantique error: les token forme une ligne de commande valable?
+- Parser: Interpréter quoi faire avec chaque token
+Objectif : Déterminer le rôle de chaque token (commande, argument, redirection, etc.) et organiser ces informations dans une structure utilisable pour l'exécution.
 
+check_error_parsing:
+- Check unknown token
+Objectif : Vérifier que tous les tokens sont reconnus et valides (par exemple, pas de caractères ou de séquences inconnus).
+
+- Check semantique error: les tokens forment une ligne de commande valable?
+Objectif : S'assurer que les tokens forment une commande syntaxiquement correcte (par exemple, vérifier que les redirections sont suivies de fichiers).
 
 processing_cmd:
-- variable d'environnement trouver path
-- concatenate args?
+- Variable d'environnement trouver path
+Objectif : Utiliser les variables d'environnement pour trouver le chemin complet de la commande (utiliser la variable PATH).
 
-processing_redirection
-- assigner fd a la commande
-- faire pipe: mettre output dans fichier suivant
-- ouvrir fichier suivant
+- Concatenate args
+Objectif : Construire une liste d'arguments à partir des tokens, incluant la commande elle-même et ses arguments.
+
+processing_redirection:
+- Assigner fd à la commande
+Objectif : Rediriger les descripteurs de fichiers (fd) pour l'entrée et la sortie selon les opérateurs de redirection trouvés dans la commande (par exemple, <, >).
+
+- Faire pipe: mettre output dans fichier suivant
+Objectif : Mettre en place des pipes pour permettre la communication entre commandes si nécessaire.
+
+- Ouvrir fichier suivant
+Objectif : Ouvrir les fichiers spécifiés pour la redirection de sortie ou d'entrée.
 
 EXECUTION:
-???
+Objectif : Exécuter la commande avec les arguments et redirections spécifiés en utilisant des appels système comme fork, exec, et wait.
 
-remove_token
-???
+remove_token:
+Objectif : Libérer la mémoire allouée pour les tokens après leur utilisation.
 
-reset_prompt
+reset_prompt:
+Objectif : Réinitialiser l'invite de commande pour permettre à l'utilisateur de saisir une nouvelle commande.
 
 
 

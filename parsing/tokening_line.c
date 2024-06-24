@@ -10,7 +10,9 @@
 
 #include "../minishell.h"
 
-int tokening_line(t_tocken **tocken, char *line)
+
+void	tokening_line(t_tocken **tockens, char *line)
 {
-    
+	*tockens = NULL;
+	node = newnode();
 }
