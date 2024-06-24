@@ -1,9 +1,9 @@
 NAME = Minishell
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -Iparsing
 FLAGS += -I$(HOME)/.brew/opt/readline/include
 READLINE += -L$(HOME)/.brew/opt/readline/lib -lreadline -arch arm64
-SRCS = minishell.c \
+SRCS = minishell.c ./parsing/tokening_line.c \
 
 OBJECTS = $(SRCS:.c=.o)
 
