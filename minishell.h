@@ -20,7 +20,9 @@
 //retourne 1 en cas de probleme mineurs, si la commande ne peut pas acceder au subdirectory
 # define ERR_FILE_DIR 1 "No such file or directory\n"
 //retourne 127 en cas de commande non trouvee
-# define COMMAND_NOT_FOUND 127 "command not found\n"
+# define CMD_NOT_FOUND 127 "command not found\n"
+//probleme avec les redirections et le echo $>
+# define SYNTX_ERROR 258 "syntax error near unexpected token `newline'\n"
 
 // status = 1 si c est une commande, 2 si c est un arg, 3 si c est une redirection, 4 si c est un pipe
 typedef struct s_tocken
