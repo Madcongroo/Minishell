@@ -24,7 +24,7 @@ int	main(int argc, char **argv, char **envp)
 	t_tocken	*tocken;
 
 
-	prompt = "Minishell$ ";
+	prompt = "Minishell> ";
 	while (1)
 	{
 		printf("%s", prompt);
