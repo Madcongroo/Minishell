@@ -1,0 +1,5 @@
+*.o
+*txt
+*md
+*Minishell
+*function_desc_fr.md

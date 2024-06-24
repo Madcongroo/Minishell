@@ -15,12 +15,13 @@
 
 #include "minishell.h"
 
+
+
 int	main(int argc, char **argv, char **envp)
 {
-	char	*prompt;
-	char	*line;
-	(void)envp;
-	(void)argc;
+	char		*prompt;
+	char		*line;
+	t_tocken	*tocken;
 
 
 	prompt = "Minishell$ ";
@@ -28,7 +29,9 @@ int	main(int argc, char **argv, char **envp)
 	{
 		printf("%s", prompt);
 		line = readline(argv[1]);
-		if (parse_line(line))
+		if (tokening_line(&tocken, line))
 			return (0);
 	}
+	free(line);
+	return (0);
 }
