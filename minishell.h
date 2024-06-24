@@ -27,7 +27,6 @@
 // status = 1 si c est une commande, 2 si c est un arg, 3 si c est une redirection, 4 si c est un pipe
 typedef struct s_tocken
 {
-	struct s_tocken *prev;
 	char			*arg;
 	int				status;
 	struct s_tocken	*next;
