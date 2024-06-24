@@ -36,5 +36,6 @@ typedef struct s_tocken
 
 
 int		print_errors(char *str);
+int	tokening_line(t_tocken **tockens, char *line);
 
 #endif
