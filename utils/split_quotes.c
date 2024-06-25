@@ -19,7 +19,10 @@ static	size_t	ft_wordcount(const char *s, char c)
 	while (s[i] != '\0')
 	{
 		if (s[i] != c && (s[i + 1] == c || s[i + 1] == '\0'))
+		{
+			if (s[i] == )
 			wcnt++;
+		}
 		i++;
 	}
 	return (wcnt);
