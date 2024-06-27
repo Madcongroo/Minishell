@@ -34,7 +34,7 @@ void	new_node(t_tocken **tocken, int status, char *arg)
 	new_node->next = NULL;
 }
 
-void	tokening_line(t_tocken **tockens, char *line)
+void	lexing_words(t_tocken **tockens, char *line)
 {
     
 }

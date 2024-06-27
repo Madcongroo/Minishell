@@ -28,3 +28,12 @@ git pull origin nom de la branche sur laquelle pull.
 
 merge depuis la branche personnelle
 
+a prendre en compte:
+
+les simples quotes : tout ce qui est a l interieur est litteral.
+les double quotes: presque tout est litteral sauf le $ qui expand, ne pas prendre en compte
+    les parentheses. toutes les commandes non builtin son executable a l interieur des simples
+        et double quotes.
+
+
+

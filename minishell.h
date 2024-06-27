@@ -23,18 +23,40 @@
 # define CMD_NOT_FOUND 127 "command not found\n"
 //probleme avec les redirections et le echo $>
 # define SYNTX_ERROR 258 "syntax error near unexpected token `newline'\n"
+//probleme de quotes non fermees
+# define UNCLOSED_QUOTES 1 "syntax error unclosed quotes\n"
 
-// status = 1 si c est une commande, 2 si c est un arg, 3 si c est une redirection, 4 si c est un pipe
 typedef struct s_tocken
 {
 	char			*arg;
-	int				status;
+	int				enum_exec;
 	struct s_tocken	*next;
 }				t_tocken;
 
+typedef struct s_word
+{
+	char		*word;
 
+}				t_word;
+
+enum exec
+{
+	CMD = 1,
+	ARG = 2,
+	REDIR = 3,
+	PIPE = 4,
+	HERE_DOC = 6,
+	EXPORT = 7
+};
+
+// enum pour le status est pour savoir dans quel endroit se trouve misihell / bash
+// enum status
+// {
+
+
+// };
 
 int		print_errors(char *str);
-int	tokening_line(t_tocken **tockens, char *line);
+int		lexing_words(t_tocken **tockens, char *line);
 
 #endif

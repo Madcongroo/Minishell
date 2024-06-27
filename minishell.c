@@ -29,7 +29,7 @@ int	main(int argc, char **argv)
 	{
 		printf("%s", prompt);
 		line = readline(argv[1]);
-		if (tokening_line(&tocken, line))
+		if (lexing_words(&tocken, line))
 			return (0);
 	}
 	free(line);

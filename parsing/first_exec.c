@@ -10,60 +10,43 @@
 
 #include "../minishell.h"
 
-
-
-/// @brief voir si la premiere quote correspond a la derniere quote
-/// @param char *
-int	is_quote_closed_with_same_quote(char *line)
+/*trigger a 1 dans ce cas : mot' 'mot (output = 1 mot)
+  trigger a 2 dans ce cas : mot ' 'mot (output = 2 mots)
+  trigger a 3 dans ce cas : mot' ' mot (output = 2 mots)
+  trigger a 4 dans ce cas : mot ' ' mot (output = 3 mots)
+  meme chose avec les doubles guillemets.
+*/
+int	search_quote_pattern(char *line, int quote, char c)
 {
-	int		i;
-	char	first_quote;
-	char	last_quote;
+	int	trigger;
 
-	i = 0;
-	first_quote = 'i';
-	last_quote = 'c';
-	while (line[i] == 39 || line[i] == 34)
-	{
-		first_quote == line[i];
-		i++;
-	}
-	i = 0;
-	while (line[i])
-	{
-		if (line[i] == 39 || line[i] == 34)
-			last_quote == line[i];
-		i++;
-	}
-	if (first_quote != last_quote);
-		return (1);
-	return (0);
+	trigger = 0;
+	if (line[quote - 1] == ' ')
+		trigger += 2;
+	else if (line[quote - 1] != ' ')
+		trigger += 1;
+	quote++;
+	while (line[quote] != c || line[quote])
+		quote++;
+	if (line[quote + 1] == ' ')
+		trigger += 2;
+	else if (line[quote + 1] == ' ')
+		trigger += 2;
+	return (trigger);
 }
 
-
-/// @brief fonction qui renvoie -1 si il y a un probleme,
-/// 0 si il n y a pas de problemes et 1 si il y a des quotes a genrer
-/// @param char *
-/// @return -1 == probleme, 0 == pas probleme, 1 == quotes
-int		is_line_tokenable(char *line)
+char	*first_line_cut(char *line, int *i, char c, int quote)
 {
-	int		i;
-	int		quote_count;
+	int			i;
+	static int	j;
 
-	i = -1;
-	quote_count = 0;
-	if (!line)
-		return (-1);
-	while (line[++i])
-	{
-		if (line[i] == 39 || line[i] == 34)
-			quote_count += 1;
-	}
-	if (is_quote_closed_with_same_quote(line))
-		return (-1);
-	else if (quote_count % 2 == 0 && quote_count != 0)
+	i = 0;
+	while (line[i] == ' ')
+		i++;
+	n_line = split_for_token(line, ' ');
+	if (!n_line)
 		return (1);
-	return (0);
+	
 }
 
 char	*ft_get_words(char *line)
@@ -71,13 +54,25 @@ char	*ft_get_words(char *line)
 	
 }
 
-void	tokening_line(t_tocken **tockens, char *line)
+void	lexing_words(t_tocken **tockens, char *line)
 {
-	int	i;
-
+	char	*word;
+	int		i;
+	int		quote;
+	
+	quote = 0;
+	if (!line)
+		return ;
 	i = -1;
 	while (line[i])
 	{
-		
+		if (line[i] == "'" || line[i] == '"' || line[i] == ' ')
+		{
+			if (line[i] == 34 || line[i] == 39)
+				quote = search_quote_pattern(line, i, line[i]);
+			word = first_line_cut(line, &i, line[i], quote);
+		}
+		i++;
 	}
+	
 }
