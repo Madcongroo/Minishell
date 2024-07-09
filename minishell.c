@@ -21,15 +21,15 @@ int	main(int argc, char **argv)
 {
 	char		*prompt;
 	char		*line;
-	t_tocken	*tocken;
+	t_tocken	*token;
 
-	tocken = NULL;
+	token = NULL;
 	prompt = "Minishell> ";
 	while (1)
 	{
 		printf("%s", prompt);
 		line = readline(argv[1]);
-		if (lexing_words(&tocken, line))
+		if (lexing_words(&token, line))
 			return (0);
 	}
 	free(line);

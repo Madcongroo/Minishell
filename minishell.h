@@ -26,12 +26,12 @@
 //probleme de quotes non fermees
 # define UNCLOSED_QUOTES 1 "syntax error unclosed quotes\n"
 
-typedef struct s_tocken
+typedef struct s_token
 {
 	char			*arg;
 	int				enum_exec;
-	struct s_tocken	*next;
-}				t_tocken;
+	struct s_token	*next;
+}				t_token;
 
 typedef struct s_word
 {

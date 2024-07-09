@@ -10,31 +10,31 @@
 
 #include "../minishell.h"
 
-t_tocken	*find_last_node(t_tocken *tocken)
+t_token	*find_last_node(t_token *token)
 {
-	t_tocken	*temp;
+	t_token	*temp;
 
-	temp = tocken;
+	temp = token;
 	while (temp->next)
 		temp = temp->next;
 	return (temp);
 }
 
-void	new_node(t_tocken **tocken, int status, char *arg)
+void	new_node(t_token **token, int status, char *arg)
 {
-	t_tocken	*new_node;
+	t_token	*new_node;
 
-	new_node = (t_tocken *)malloc(sizeof(t_tocken));
+	new_node = (t_token *)malloc(sizeof(t_token));
 	if (!new_node)
 		return ;
-	if (!(*tocken))
-		(*tocken) = new_node;
+	if (!(*token))
+		(*token) = new_node;
 	else
-		find_last_node(tocken)->next = new_node;
+		find_last_node(token)->next = new_node;
 	new_node->next = NULL;
 }
 
-void	lexing_words(t_tocken **tockens, char *line)
+void	lexing_words(t_token **tokens, char *line)
 {
     
 }

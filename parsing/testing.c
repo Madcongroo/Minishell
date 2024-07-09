@@ -5,17 +5,33 @@
 //
 //
 //
-//
-//
 
 #include "../minishell.h"
 
-/*trigger a 1 dans ce cas : mot' 'mot (output = 1 mot)
-  trigger a 2 dans ce cas : mot ' 'mot (output = 2 mots)
-  trigger a 3 dans ce cas : mot' ' mot (output = 2 mots)
-  trigger a 4 dans ce cas : mot ' ' mot (output = 3 mots)
-  meme chose avec les doubles guillemets.
-*/
+char	*get_clean_line(char *line)
+{
+	int		i;
+	char	*n_line;
+
+	i = -1;
+	while (line[i])
+		i++;
+	n_line = (char *)malloc(sizeof(char) * (i + 1));
+	if (!n_line)
+		return (NULL);
+	i = -1;
+	while (line[++i])
+		n_line[i] = line[i];
+	n_line[i] = '\0';
+	return (n_line);
+}
+
+int	str_quote_length(char *line, int i, char c)
+{
+	while (line[i] != c)
+		i++;
+	return (i);
+}
 
 int	count_word(char *line, char c)
 {
@@ -56,14 +72,6 @@ int	search_quote_pattern(char *line, int quote, char c)
 	return (trigger);
 }
 
-char	*first_line_cut(char *line, int i, char c, int quote)
-{
-	static int	j = 0;
-	int			space;
-
-	
-}
-
 int	is_there_quotes(char *line)
 {
 	int		i;
@@ -90,38 +98,45 @@ int	is_there_quotes(char *line)
 	return (trigger);
 }
 
-char	**ft_get_words(char *line)
+int	ft_get_words(char *line, t_token **token)
 {
 	int		i;
-	char	c;
 	int		trigger;
-	char	**array;
+	char	*array;
+	int		j;
 
-	i = 0;
+	i = -1;
 	trigger = is_there_quotes(line);
-	if (trigger == 0)
-		array = ft_split(line, ' ');
-	else if (trigger = 1)
-		array = ft_split_with_quotes(line, ' ');
-	else
-		return (NULL);
+	while (line[++i])
+	{
+		j = 0;
+		if (trigger == 0 && line[i] == ' ')
+			array = get_simple_word(line, i, &j);
+		else if (trigger = 1 && (line[i] == 34 || line[i] == 39 || line[i] == ' '))
+			array = handle_quotes(line, i, &j, line[i]);
+		else if (trigger == -1)
+			return (NULL);
+		new_node(token, 0, array);
+		i += j;
+	}
 	return (array);
 }
 
 void	lexing_words(t_token **tokens, char *line)
 {
-	char	**words;
+	char	*clean_line;
 	int		i;
 
 	if (!line)
 		return ;
-	words = ft_get_words(line);
-	if (!words)
-		return ;
 	i = -1;
-	while (words[++i])
-	{
-		if (!new_node(tokens, 0. words[i]))
-			free_list(tokens);
-	}
+	while (line[i] == ' ')
+		i++;
+	clean_line = get_clean_line(line + i);
+	if (!clean_line)
+		return (NULL);
+	free(line);
+	if (ft_get_words(clean_line, tokens))
+		return (NULL);
 }
+	
