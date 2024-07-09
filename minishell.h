@@ -53,10 +53,9 @@ enum exec
 // enum status
 // {
 
-
 // };
 
 int		print_errors(char *str);
-int		lexing_words(t_tocken **tockens, char *line);
+int		lexing_words(t_token **tokens, char *line);
 
 #endif

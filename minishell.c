@@ -17,11 +17,11 @@
 
 
 
-int	main(int argc, char **argv)
+int	main(int argc, char **argv, char **envp)
 {
 	char		*prompt;
 	char		*line;
-	t_tocken	*token;
+	t_token	*token;
 
 	token = NULL;
 	prompt = "Minishell> ";

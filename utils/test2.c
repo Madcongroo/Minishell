@@ -56,9 +56,12 @@ char	*get_single_word(char *line, int i)
 // 		while (line[++idx] != c)
 // 		idx++;
 // 	}
-	
-	
 // }
+
+int	check_after_quotes(char *line, int i, char c, int j)
+{
+	while (line[i] )
+}
 
 int	space_before_quote(char *line, int i, char c)
 {
@@ -72,11 +75,11 @@ int	space_before_quote(char *line, int i, char c)
 	}
 	if (line[i + 1] == ' ')
 		return (j);
-	else if (line[i + 1] == 34 || line[i + 1] == 39)
-
+	else
+		j += check_after_quotes(line, i, c, j);
 }
 
-int	get_quote_length(char *line, int i, char c)
+int	find_quote_length(char *line, int i, char c)
 {
 	if (i != 0)
 	{
