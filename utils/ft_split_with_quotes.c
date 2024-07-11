@@ -49,26 +49,18 @@ static	size_t	ft_wordcount(const char *s, char c)
 static	char	*ft_printwords(const char *s, char c, size_t word)
 {
 	size_t	j;
+	int		i;
 	char	*str;
 
 	j = 0;
+	i = -1;
 	str = (char *)malloc(sizeof(char) * word + 1);
 	if (!str)
 		return (NULL);
-	while (*s != '\0')
+	while (++i < word)
 	{
-		while (*s != c && *s)
-		{
-			str[j] = *s;
-			j++;
-			s++;
-		}
-		if (*s - 1 != c && (*s == c || *s == '\0'))
-		{
-			str[j] = '\0';
-			return (str);
-		}
-		s++;
+		str[j] = s[i];
+		j++;
 	}
 	str[j] = '\0';
 	return (str);
