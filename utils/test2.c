@@ -58,9 +58,20 @@ char	*get_single_word(char *line, int i)
 // 	}
 // }
 
-int	check_after_quotes(char *line, int i, char c, int j)
+int	check_after_quotes(char *line, int i, char c)
 {
-	while (line[i] )
+	int	count;
+
+	count = 0;
+	if (line[i] == 34 || line[i] == 39)
+	{	
+		c = line[i];
+		count += 1;
+		while (line[++i] != c)
+		{
+			
+		}
+	}
 }
 
 int	space_before_quote(char *line, int i, char c)
@@ -76,7 +87,10 @@ int	space_before_quote(char *line, int i, char c)
 	if (line[i + 1] == ' ')
 		return (j);
 	else
-		j += check_after_quotes(line, i, c, j);
+	{
+		i++;
+		j += check_after_quotes(line, i, c);
+	}
 }
 
 int	find_quote_length(char *line, int i, char c)
@@ -96,26 +110,16 @@ char	*handle_quotes(char *line, int i, char c)
 {
 	char		*word;
 	static int	idx = -1;
-	int			j;
-	int			w_length;
 
-	j = 0;
-	while (line[++idx] == ' ')
-	{}
-	if (i - idx <= 0)
-		return (NULL);
-	if (c == 39 || c == 34)
-		w_length = find_quote_length(line, i, c);
-	word = (char *)malloc(sizeof(char) * (i - idx));
-	if (!word)
-		return (NULL);
-	while (line[idx])
+	if (i != 0)
 	{
-		word[j] = line[idx];
-		j++;
+		if (line[i - 1] != ' ')
+
 	}
-	word[j] = '\0';
-	return (word);
+}
+char *test_quote(char line)
+{
+
 }
 
 char	**ft_get_words(char *line, t_token **token)
@@ -132,7 +136,7 @@ char	**ft_get_words(char *line, t_token **token)
 			array = get_single_word(line, i);
 		else if (trigger = 1 && (line[i] == 34 || line[i] == 39
 			|| line[i] == ' ' || line[i] == '\0'))
-			array = handle_quotes(line, i, line[i]);
+				array = handle_quotes(line, i, line[i]);
 		else if (trigger == -1)
 			return (NULL);
 		if (array)

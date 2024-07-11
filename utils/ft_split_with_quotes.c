@@ -8,19 +8,39 @@
 
 #include "../minishell.h"
 
+int	find_quoted_word_length(const char *s, int i)
+{
+	char	c;
+	int		j;
+
+	j = i;
+	c = s[i];
+	i++;
+	while (s[i] != c)
+		i++;
+	return (i - j);
+}
+
 static	size_t	ft_wordcount(const char *s, char c)
 {
 	size_t	i;
 	size_t	wcnt;
+	char	quote;
 
 	i = 0;
 	wcnt = 0;
+	quote = 'v';
 	while (s[i] != '\0')
 	{
+		if (s[i] == 34 || s[i] == 39)
+			{
+				quote = s[i];
+				while (s[++i] != quote)
+				{
+				}
+			}
 		if (s[i] != c && (s[i + 1] == c || s[i + 1] == '\0'))
 			wcnt++;
-        if (s[i] == 34 || s[i] == 39)
-            
 		i++;
 	}
 	return (wcnt);
@@ -59,19 +79,26 @@ static	char	**ft_wordlength(char **str, const char *s, char c, size_t j)
 	size_t	sep;
 	size_t	word;
 	size_t	i;
+	int		quote;
 
 	sep = 0;
-	i = 0;
-	while (i < j)
+	i = -1;
+	while (++i < j)
 	{
 		word = 0;
 		while (s[sep] == c)
 			sep++;
 		while (s[sep + word] != c && s[sep + word])
+		{
+			quote = 0;
+			if (s[sep + word] == 34 || s[sep + word] == 39)
+				quote = find_quoted_word_length(s, sep + word);
+			if (quote != 0)
+				word += quote;
 			word++;
+		}
 		str[i] = ft_printwords(s + sep, c, word);
 		sep += word;
-		i++;
 	}
 	return (str);
 }
