@@ -51,6 +51,7 @@ static	char	*ft_printwords(const char *s, char c, size_t word)
 	size_t	j;
 	int		i;
 	char	*str;
+	char	*clean_str;
 
 	j = 0;
 	i = -1;
@@ -63,7 +64,7 @@ static	char	*ft_printwords(const char *s, char c, size_t word)
 		j++;
 	}
 	str[j] = '\0';
-	return (str);
+	return (cleaning_str(str));
 }
 
 static	char	**ft_wordlength(char **str, const char *s, char c, size_t j)

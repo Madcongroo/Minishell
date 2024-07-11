@@ -117,30 +117,48 @@ char	*handle_quotes(char *line, int i, char c)
 
 	}
 }
-char *test_quote(char line)
-{
 
+char	*cleaning_str(char *str)
+{
+	int		i;
+	char	*clean_str;
+	int		quote;
+
+	i = 0;
+	quote = 0;
+	while (str[i] && (str[i] != 34 && str[i] != 39))
+		i++;
+	if (str[i] == '\0')
+		return (str);
+	i = -1;
+	while (str[++i])
+	{
+		if (str[i] == 34 || str[i] == 39)
+			
+	}
 }
 
-char	**ft_get_words(char *line, t_token **token)
+void	ft_get_words(char *line, t_token **token)
 {
 	int		i;
 	int		trigger;
-	char	*array;
+	char	**array;
+	char	**clean_array;
 
 	i = -1;
 	trigger = is_there_quotes(line);
-	while (line[++i])
+	if (trigger == 0)
+		array = ft_split(line, ' ');
+	else if (trigger = 1 && (line[i] == 34 || line[i] == 39
+		|| line[i] == ' ' || line[i] == '\0'))
+			array = handle_quotes(line, i, line[i]);
+	else if (trigger == -1)
+		return (NULL);
+	clean_array = cleanig_array(array);
+	free(array);
+	if (clean_array)
 	{
-		if (trigger == 0 && (line[i] == ' ' || line[i] == '\0'))
-			array = get_single_word(line, i);
-		else if (trigger = 1 && (line[i] == 34 || line[i] == 39
-			|| line[i] == ' ' || line[i] == '\0'))
-				array = handle_quotes(line, i, line[i]);
-		else if (trigger == -1)
-			return (NULL);
-		if (array)
-			new_node(token, 0, array);
+		while (clean_array[++i])	
+			new_node(token, 0, clean_array[i]);
 	}
-	return (array);
 }
