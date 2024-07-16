@@ -69,9 +69,8 @@ char	*copy_str(char *str, int mall)
 	clean_str = malloc(sizeof(char) * (mall + 1));
 	if (!clean_str)
 		return (NULL);
-	j = -1;
+	j = 0;
 	i = -1;
-	c = 'v';
 	while (str[++i])
 	{
 		if (str[i] == 34 || str[i] == 39)
@@ -113,7 +112,6 @@ int	is_there_quotes(char *line)
 	char	c;
 
 	i = 0;
-	c = 'q';
 	trigger = 0;
 	while (line[i])
 	{
@@ -121,7 +119,7 @@ int	is_there_quotes(char *line)
 		{
 			c = line[i];
 			i++;
-			while (line[i] != c || line[i])
+			while (line[i] != c && line[i] != '\0')
 				i++;
 			if (line[i] == '\0')
 				return (-1);
@@ -139,10 +137,7 @@ int	ft_get_words(char *line, t_token **token)
 	char	**array;
 
 	i = -1;
-	puts("1");
 	trigger = is_there_quotes(line);
-	puts("2");
-	printf("trigger value is %d\n", trigger);
 	if (trigger == 0)
 		array = ft_split(line, ' ');
 	else if (trigger == 1)

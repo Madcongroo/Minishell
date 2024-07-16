@@ -12,9 +12,9 @@
 # include <sys/ioctl.h>
 # include <termios.h>
 # include <curses.h>
-# include <term.h>
 # include <readline/readline.h>
 # include <readline/history.h>
+# include <term.h>
 # include <fcntl.h>
 
 //retourne 1 en cas de probleme mineurs, si la commande ne peut pas acceder au subdirectory
