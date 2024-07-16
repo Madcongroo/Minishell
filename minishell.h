@@ -55,7 +55,17 @@ enum exec
 
 // };
 
-int		print_errors(char *str);
+// int		print_errors(char *str);
 int		lexing_words(t_token **tokens, char *line);
+char	*get_clean_line(char *line);
+int		ft_get_words(char *line, t_token **token);
+int		is_there_quotes(char *line);
+char	**ft_split(char const *s, char c);
+char	**ft_split_with_quotes(char const *s, char c);
+char	*cleaning_str(char *str);
+int		new_value_to_malloc(char *str);
+char	*copy_str(char *str, int mall);
+void	new_node(t_token **token, int status, char *arg);
+t_token	*find_last_node(t_token *token);
 
 #endif
