@@ -18,13 +18,13 @@
 # include <fcntl.h>
 
 //retourne 1 en cas de probleme mineurs, si la commande ne peut pas acceder au subdirectory
-# define ERR_FILE_DIR 1 "No such file or directory\n"
+# define ERR_FILE_DIR "No such file or directory\n"
 //retourne 127 en cas de commande non trouvee
-# define CMD_NOT_FOUND 127 "command not found\n"
-//probleme avec les redirections et le echo $>
-# define SYNTX_ERROR 258 "syntax error near unexpected token `newline'\n"
-//probleme de quotes non fermees
-# define UNCLOSED_QUOTES 1 "syntax error unclosed quotes\n"
+# define CMD_NOT_FOUND "command not found\n"
+//probleme avec les redirections et le echo $> 258
+# define SYNTX_ERROR "syntax error near unexpected token `newline'\n"
+//probleme de quotes non fermees status 1
+# define UNCLOSED_QUOTES "syntax error unclosed quotes\n"
 
 typedef struct s_token
 {
@@ -38,6 +38,12 @@ typedef struct s_word
 	char		*word;
 
 }				t_word;
+
+typedef struct s_history
+{
+	char		**cmd_hist;
+	int			last_exit_status;
+}				t_history;
 
 enum exec
 {
@@ -55,7 +61,7 @@ enum exec
 
 // };
 
-// int		print_errors(char *str);
+int		print_errors(int status, char *str, t_token **token);
 int		lexing_words(t_token **tokens, char *line);
 char	*get_clean_line(char *line);
 int		ft_get_words(char *line, t_token **token);

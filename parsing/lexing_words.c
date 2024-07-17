@@ -94,10 +94,17 @@ char	*cleaning_str(char *str)
 
 	i = 0;
 	while (str[i] && (str[i] != 34 && str[i] != 39))
+	{
+		puts("number of time in while loop");
 		i++;
+	}
 	if (str[i] == '\0')
+	{
+		puts("in return without quoted values");
 		return (str);
+	}
 	mall = new_value_to_malloc(str);
+	printf("new malloc value %d\n", mall);
 	clean_str = copy_str(str, mall);
 	if (!clean_str)
 		return (NULL);
@@ -141,16 +148,18 @@ int	ft_get_words(char *line, t_token **token)
 	if (trigger == 0)
 		array = ft_split(line, ' ');
 	else if (trigger == 1)
-			array = ft_split_with_quotes(line, ' ');
+		array = ft_split_with_quotes(line, ' ');
 	if (trigger == -1)
-		return (1);
+		return (print_errors(1, UNCLOSED_QUOTES, token));
 	if (array)
 	{
 		while (array[++i])
 		{
+			puts("1");
 			array[i] = cleaning_str(array[i]);
 			if (!array[i])
 				return (1);
+			puts("2");
 			new_node(token, 0, array[i]);
 		}	
 	}
