@@ -29,7 +29,9 @@
 typedef struct s_token
 {
 	char			*arg;
+	int				to_execute;
 	int				enum_exec;
+	void			*type;
 	struct s_token	*next;
 }				t_token;
 
@@ -52,7 +54,7 @@ typedef struct s_access
 	int			last_exit_status;
 }				t_access;
 
-enum exec
+typedef enum exec
 {
 	CMD = 1,
 	ARG = 2,

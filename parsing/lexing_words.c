@@ -165,5 +165,7 @@ int	lexing_words(t_token **tokens, char *line)
 	free(line);
 	if (ft_get_words(clean_line, tokens))
 		return (1);
+	if (clean_list(tokens))
+		return (1);
 	return (0);
 }

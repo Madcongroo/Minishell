@@ -2,8 +2,8 @@
 
 int	print_errors(int status, char *str, t_token **token)
 {
-    (void)token;
+	(void)token;
 
-    printf("%s", str);
-    return (status);
+	printf("%s", str);
+	return (status);
 }
