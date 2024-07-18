@@ -39,11 +39,18 @@ typedef struct s_word
 
 }				t_word;
 
-typedef struct s_history
+typedef struct s_expand
 {
-	char		**cmd_hist;
+	char		**env;
+	
+}				t_expand;
+
+
+typedef struct s_access
+{
+
 	int			last_exit_status;
-}				t_history;
+}				t_access;
 
 enum exec
 {
@@ -55,7 +62,7 @@ enum exec
 	EXPORT = 7
 };
 
-// enum pour le status est pour savoir dans quel endroit se trouve misihell / bash
+// enum pour le status est pour savoir dans quel endroit se trouve misihell
 // enum status
 // {
 
@@ -73,5 +80,6 @@ int		new_value_to_malloc(char *str);
 char	*copy_str(char *str, int mall);
 void	new_node(t_token **token, int status, char *arg);
 t_token	*find_last_node(t_token *token);
+void	clear_list(t_token **token);
 
 #endif

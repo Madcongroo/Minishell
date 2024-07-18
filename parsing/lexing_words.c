@@ -10,32 +10,6 @@
 
 #include "../minishell.h"
 
-t_token	*find_last_node(t_token *token)
-{
-	t_token	*temp;
-
-	temp = token;
-	while (temp->next)
-		temp = temp->next;
-	return (temp);
-}
-
-void	new_node(t_token **token, int status, char *arg)
-{
-	t_token	*new_node;
-
-	new_node = (t_token *)malloc(sizeof(t_token));
-	if (!new_node)
-		return ;
-	new_node->arg = arg;
-	new_node->enum_exec = status;
-	if (!(*token))
-		(*token) = new_node;
-	else
-		find_last_node(*token)->next = new_node;
-	new_node->next = NULL;
-}
-
 int	new_value_to_malloc(char *str)
 {
 	int		i;
@@ -94,10 +68,7 @@ char	*cleaning_str(char *str)
 
 	i = 0;
 	while (str[i] != 34 && str[i] != 39 && str[i] != '\0')
-	{
-		// printf("1 in loop\n");
 		i++;
-	}
 	if (str[i] == '\0')
 		return (str);
 	mall = new_value_to_malloc(str);
@@ -149,15 +120,8 @@ int	ft_get_words(char *line, t_token **token)
 		return (print_errors(1, UNCLOSED_QUOTES, token));
 	if (array)
 	{
-		// printf("1\n");
 		while (array[++i])
-		{
-			// array[i] = cleaning_str(array[i]);
-			// if (!array[i])
-			// 	return (1);
-			// printf("2\n");
 			new_node(token, 0, array[i]);
-		}	
 	}
 	else
 		return (1);

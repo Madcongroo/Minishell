@@ -31,21 +31,22 @@ void	test_read_list(t_token *token)
 
 int	main(int argc, char **argv, char **envp)
 {
-	char		*prompt;
 	char		*line;
 	t_token		*token;
-	(void)argc;
-	(void)envp;
+	// (void)argc;
+	// (void)envp;
+	// (void)argv;
 
 	token = NULL;
-	prompt = "Minishell> ";
 	while (1)
 	{
-		printf("%s", prompt);
-		line = readline(argv[1]);
+		line = readline("Minishell> ");
+		add_history(line);
 		if (lexing_words(&token, line))
 			return (0);
 		test_read_list(token);
+		clear_list(&token);
+		rl_on_new_line();
 	}
 	free(line);
 	return (0);
