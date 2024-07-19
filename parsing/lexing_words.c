@@ -57,10 +57,12 @@ char	*copy_str(char *str, int mall)
 			c = str[i];
 			while (str[++i] != c)
 				clean_str[j++] = str[i];
-			i++;
 		}
-		clean_str[j] = str[i];
-		j++;
+		if (str[i] != 34 && str[i] != 39)
+		{
+			clean_str[j] = str[i];
+			j++;
+		}
 	}
 	return (clean_str);
 }

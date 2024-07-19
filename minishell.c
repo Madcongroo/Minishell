@@ -36,8 +36,6 @@ void	test_read_list(t_token *token)
 			token = token->next;
 		}
 	}
-	else
-		printf("token uninitialized\n");
 }
 
 int	main(int argc, char **argv, char **envp)
@@ -56,8 +54,8 @@ int	main(int argc, char **argv, char **envp)
 		if (lexing_words(&token, line))
 			return (0);
 		// read_n_classify(&token);
-		// clear_list(&token);
 		test_read_list(token);
+		clear_list(&token);
 		rl_on_new_line();
 	}
 	free (line);
