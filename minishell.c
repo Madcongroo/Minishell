@@ -44,9 +44,9 @@ int	main(int argc, char **argv, char **envp)
 {
 	char		*line;
 	t_token		*token;
-	// (void)argc;
-	// (void)envp;
-	// (void)argv;
+	(void)argc;
+	(void)envp;
+	(void)argv;
 
 	token = NULL;
 	while (1)
@@ -55,8 +55,9 @@ int	main(int argc, char **argv, char **envp)
 		add_history(line);
 		if (lexing_words(&token, line))
 			return (0);
-		read_n_classify(&token);
+		// read_n_classify(&token);
 		// clear_list(&token);
+		test_read_list(token);
 		rl_on_new_line();
 	}
 	free (line);

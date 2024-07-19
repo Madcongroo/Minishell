@@ -54,7 +54,7 @@ static	char	*ft_printwords(const char *s, size_t word)
 
 	j = 0;
 	i = -1;
-	str = (char *)malloc(sizeof(char) * word + 1);
+	str = (char *)malloc(sizeof(char) * (word + 1));
 	if (!str)
 		return (NULL);
 	while (++i < word)

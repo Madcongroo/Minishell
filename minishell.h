@@ -26,6 +26,12 @@
 //probleme de quotes non fermees status 1
 # define UNCLOSED_QUOTES "syntax error unclosed quotes\n"
 
+
+
+
+//to execute est une variable qui est a 1 si il faut executer ce quil y a a l interieur et 
+//display si elle est a 0
+
 typedef struct s_token
 {
 	char			*arg;
@@ -54,7 +60,7 @@ typedef struct s_access
 	int			last_exit_status;
 }				t_access;
 
-typedef enum exec
+enum exec
 {
 	CMD = 1,
 	ARG = 2,

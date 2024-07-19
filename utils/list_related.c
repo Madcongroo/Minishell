@@ -31,6 +31,7 @@ void	new_node(t_token **token, int status, char *arg)
 		return ;
 	new_node->arg = arg;
 	new_node->enum_exec = status;
+	new_node->to_execute = 0;
 	if (!(*token))
 		(*token) = new_node;
 	else

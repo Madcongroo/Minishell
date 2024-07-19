@@ -10,6 +10,11 @@
 
 #include "../minishell.h"
 
+// int	clean_list(t_token **token)
+// {
+
+// }
+
 int	new_value_to_malloc(char *str)
 {
 	int		i;
@@ -165,7 +170,7 @@ int	lexing_words(t_token **tokens, char *line)
 	free(line);
 	if (ft_get_words(clean_line, tokens))
 		return (1);
-	if (clean_list(tokens))
-		return (1);
+	// if (clean_list(tokens))
+	// 	return (1);
 	return (0);
 }
