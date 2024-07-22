@@ -22,9 +22,10 @@ t_token	*find_last_node(t_token *token)
 	return (temp);
 }
 
-void	new_node(t_token **token, int status, char *arg)
+void	new_node(t_token **token, int status, char *arg, int exec)
 {
 	t_token	*new_node;
+	(void)exec;
 
 	new_node = (t_token *)malloc(sizeof(t_token));
 	if (!new_node)
