@@ -12,28 +12,28 @@ int	check_cmd(t_token *base, t_token *current_tok)
 	return (0);
 }
 
-int	syntax_analisis(t_token *base)
+int	syntax_analisis(t_general *gen)
 {
 	t_token *current_tok;
 
-	current_tok = base;
-	if (!base)
+	current_tok = gen->tok;
+	if (!gen->tok)
 		return (1);
-	if (current_tok->type == PIPE || current_tok->type == ARG)
+	if (current_tok->enum_exec == PIPE || current_tok->enum_exec == ARG)
 		return (1);
 	while (current_tok)
 	{
-		if (current_tok->type == CMD)
+		if (current_tok->enum_exec == CMD)
 		{
-			if (check_cmd(base, current_tok))
+			if (check_cmd(gen->tok, current_tok))
 				return (1);
 		}
-		if (current_tok->type == ARG )
+		if (current_tok->enum_exec == ARG )
 		{
-			if (check_arg(base, current_tok))
+			if (check_arg(gen->tok, current_tok))
 				return (1);
 		}
-		if (current)
+		if (current_tok)
 			
 	}
 }

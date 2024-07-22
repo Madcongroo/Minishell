@@ -1,8 +1,8 @@
 #include "minishell.h"
 
-int	print_errors(int status, char *str, t_token **token)
+int	print_errors(int status, char *str, t_general *gen)
 {
-	(void)token;
+	(void)gen;
 
 	printf("%s", str);
 	return (status);
