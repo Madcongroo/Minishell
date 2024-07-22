@@ -35,5 +35,19 @@ les double quotes: presque tout est litteral sauf le $ qui expand, ne pas prendr
     les parentheses. toutes les commandes non builtin son executable a l interieur des simples
         et double quotes.
 
+ash-3.2$ '$''U''S''E''R'
+bash: $USER: command not found
+bash-3.2$ "$""U""S""E""R"
+bash: $USER: command not found
+bash-3.2$ "$USER"
+bash: proton: command not found
+bash-3.2$ '$USER'
+bash: $USER: command not found
+bash-3.2$ $USER
+bash: proton: command not found
+bash-3.2$ gdvnas
+bash: gdvnas: command not found
+bash-3.2$ '$'U''S''E''R'
+
 
 
