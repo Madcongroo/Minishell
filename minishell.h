@@ -64,10 +64,12 @@ enum exec
 {
 	CMD = 1,
 	ARG = 2,
-	REDIR = 3,
-	PIPE = 4,
+	CHEVRON_1 = 3,
+	CHEVRON_2 = 4,
+	PIPE = 5,
 	HERE_DOC = 6,
-	EXPORT = 7
+	EXPORT = 7,
+	APPEND = 8
 };
 
 // enum pour le status est pour savoir dans quel endroit se trouve misihell
@@ -89,5 +91,6 @@ char	*copy_str(char *str, int mall);
 void	new_node(t_token **token, int status, char *arg);
 t_token	*find_last_node(t_token *token);
 void	clear_list(t_token **token);
+int		syntax_analisis(t_token *base);
 
 #endif

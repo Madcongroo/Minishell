@@ -55,6 +55,7 @@ int	main(int argc, char **argv, char **envp)
 			return (0);
 		// read_n_classify(&token);
 		test_read_list(token);
+		syntax_analisis(token);
 		clear_list(&token);
 		rl_on_new_line();
 	}
