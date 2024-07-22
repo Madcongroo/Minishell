@@ -16,6 +16,7 @@
 # include <readline/history.h>
 # include <term.h>
 # include <fcntl.h>
+# include "./libft.h"
 
 //retourne 1 en cas de probleme mineurs, si la commande ne peut pas acceder au subdirectory
 # define ERR_FILE_DIR "No such file or directory\n"
@@ -31,7 +32,6 @@
 
 //to execute est une variable qui est a 1 si il faut executer ce quil y a a l interieur et 
 //display si elle est a 0
-
 typedef struct s_token
 {
 	char			*arg;
@@ -69,7 +69,9 @@ enum exec
 	PIPE = 5,
 	HERE_DOC = 6,
 	EXPORT = 7,
-	APPEND = 8
+	SIMPLE_QUOTE = 8,
+	DOUBLE_QUOTE = 9,
+	APPEND = 10
 };
 
 // enum pour le status est pour savoir dans quel endroit se trouve misihell
@@ -88,7 +90,7 @@ char	**ft_split_with_quotes(char const *s, char c);
 char	*cleaning_str(char *str);
 int		new_value_to_malloc(char *str);
 char	*copy_str(char *str, int mall);
-void	new_node(t_token **token, int status, char *arg);
+void	new_node(t_token **token, int status, char *arg, int exec);
 t_token	*find_last_node(t_token *token);
 void	clear_list(t_token **token);
 int		syntax_analisis(t_token *base);
