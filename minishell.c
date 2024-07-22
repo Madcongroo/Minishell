@@ -26,6 +26,11 @@
 // 	}
 // }
 
+void	add_env_variable(t_general *gen, char **envp)
+{
+	
+}
+
 void	test_read_list(t_token *token)
 {
 	if (token)
@@ -41,21 +46,21 @@ void	test_read_list(t_token *token)
 int	main(int argc, char **argv, char **envp)
 {
 	char		*line;
-	t_token		*token;
-	(void)argc;
-	(void)envp;
-	(void)argv;
+	t_general	*gen;
 
-	token = NULL;
+	gen = NULL;
+	if (argc != 1 && !argv[0])
+		return (print_errors(1, "Wrong number of arguments\n", gen));
 	while (1)
 	{
 		line = readline("Minishell$ ");
 		add_history(line);
-		if (lexing_words(&token, line))
-			return (0);
-		// read_n_classify(&token);
-		test_read_list(token);
-		clear_list(&token);
+		add_env_varible(gen, envp);
+		if (lexing_words(gen, line))
+			return (1);	
+			// read_n_classify(&token);
+		test_read_list(gen->tok);
+		clear_list(&gen->tok);
 		rl_on_new_line();
 	}
 	free (line);

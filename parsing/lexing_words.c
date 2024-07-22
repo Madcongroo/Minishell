@@ -111,7 +111,7 @@ int	is_there_quotes(char *line)
 	return (trigger);
 }
 
-int	ft_get_words(char *line, t_token **token)
+int	ft_get_words(char *line, t_general *gen)
 {
 	int		i;
 	int		trigger;
@@ -124,11 +124,11 @@ int	ft_get_words(char *line, t_token **token)
 	else if (trigger == 1)
 		array = ft_split_with_quotes(line, ' ');
 	if (trigger == -1)
-		return (print_errors(1, UNCLOSED_QUOTES, token));
+		return (print_errors(1, UNCLOSED_QUOTES, gen));
 	if (array)
 	{
 		while (array[++i])
-			new_node(token, 0, array[i]);
+			new_node(&gen->tok, 0, array[i]);
 	}
 	else
 		return (1);
@@ -160,7 +160,7 @@ char	*get_clean_line(char *line)
 	return (n_line);
 }
 
-int	lexing_words(t_token **tokens, char *line)
+int	lexing_words(t_general *gen, char *line)
 {
 	char	*clean_line;
 
@@ -170,7 +170,7 @@ int	lexing_words(t_token **tokens, char *line)
 	if (!clean_line)
 		return (1);
 	free(line);
-	if (ft_get_words(clean_line, tokens))
+	if (ft_get_words(clean_line, gen))
 		return (1);
 	// if (clean_list(tokens))
 	// 	return (1);

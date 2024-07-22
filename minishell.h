@@ -37,28 +37,27 @@ typedef struct s_token
 	char			*arg;
 	int				to_execute;
 	int				enum_exec;
-	void			*type;
+	int				fd_in;
+	int				fd_out;
 	struct s_token	*next;
 }				t_token;
 
-typedef struct s_word
-{
-	char		*word;
-
-}				t_word;
-
+//type est le type de variable, variable d environnement ou expand
 typedef struct s_expand
 {
-	char		**env;
-	
+	int				type;
+	char			*env;
+	struct s_expand	*next;
 }				t_expand;
 
-
-typedef struct s_access
+typedef struct s_general
 {
+	char		*word;
+	char		**env;
+	t_expand	*envir;
+	t_token		*tok;
 
-	int			last_exit_status;
-}				t_access;
+}				t_general;
 
 enum exec
 {
@@ -76,10 +75,11 @@ enum exec
 
 // };
 
-int		print_errors(int status, char *str, t_token **token);
-int		lexing_words(t_token **tokens, char *line);
+int		print_errors(int status, char *str, t_general *gen);
+void	add_env_variable(t_general *gen, char **envp);
+int		lexing_words(t_general *gen, char *line);
 char	*get_clean_line(char *line);
-int		ft_get_words(char *line, t_token **token);
+int		ft_get_words(char *line, t_general *gen);
 int		is_there_quotes(char *line);
 char	**ft_split(char const *s, char c);
 char	**ft_split_with_quotes(char const *s, char c);
