@@ -134,12 +134,7 @@ int	ft_get_words(char *line, t_general *gen)
 	if (array)
 	{
 		while (array[++i])
-		{
-			if (trigger == 0)
-				new_node(token, 0, array[i], 1);
-			else
-				new_node(&gen->tok, 0, array[i], 0);
-		}
+			new_node(&gen->tok, array[i]);
 	}
 	else
 		return (1);
@@ -171,19 +166,19 @@ char	*get_clean_line(char *line)
 	return (n_line);
 }
 
-char	*keep_if_dollar(char *line)
-{
-	char	*new_line;
-	int		n;
+// char	*keep_if_dollar(char *line)
+// {
+// 	char	*new_line;
+// 	int		n;
 
-	n = ft_strlen(line);
-	ft_strnstr(line, ""$USER"", n);
-}
+// 	n = ft_strlen(line);
+// 	ft_strnstr(line, ""$USER"", n);
+// }
 
-int	lexing_words(t_token **tokens, char *line)
+int	lexing_words(t_general *gen, char *line)
 {
 	char	*clean_line;
-	char	*dollared_line;
+	// char	*dollared_line;
 
 	if (!line)
 		return (1);
@@ -193,7 +188,7 @@ int	lexing_words(t_token **tokens, char *line)
 	free(line);
 	if (ft_get_words(clean_line, gen))
 		return (1);
-	dollared_line = keep_if_dollar(clean_line);
+	// dollared_line = keep_if_dollar(clean_line);
 	// if (clean_list(tokens))
 	// 	return (1);
 	return (0);

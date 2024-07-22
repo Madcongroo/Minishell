@@ -16,7 +16,7 @@
 # include <readline/history.h>
 # include <term.h>
 # include <fcntl.h>
-# include "./libft.h"
+# include "libft/libft.h"
 
 //retourne 1 en cas de probleme mineurs, si la commande ne peut pas acceder au subdirectory
 # define ERR_FILE_DIR "No such file or directory\n"
@@ -42,7 +42,7 @@ typedef struct s_token
 	struct s_token	*next;
 }				t_token;
 
-//type est le type de variable, variable d environnement ou expand
+//type est le type de variable, variable d environnement = 0 ou expand = 1
 typedef struct s_expand
 {
 	int				type;
@@ -77,19 +77,26 @@ enum exec
 
 // };
 
-int		print_errors(int status, char *str, t_general *gen);
-void	add_env_variable(t_general *gen, char **envp);
-int		lexing_words(t_general *gen, char *line);
-char	*get_clean_line(char *line);
-int		ft_get_words(char *line, t_general *gen);
-int		is_there_quotes(char *line);
-char	**ft_split(char const *s, char c);
-char	**ft_split_with_quotes(char const *s, char c);
-char	*cleaning_str(char *str);
-int		new_value_to_malloc(char *str);
-char	*copy_str(char *str, int mall);
-void	new_node(t_token **token, int status, char *arg, int exec);
-t_token	*find_last_node(t_token *token);
-void	clear_list(t_token **token);
+int			print_errors(int status, char *str, t_general *gen);
+void		init_struct(t_general *gen);
+void		add_env_variable(t_general *gen, char **envp);
+int			lexing_words(t_general *gen, char *line);
+char		*get_clean_line(char *line);
+int			ft_get_words(char *line, t_general *gen);
+int			is_there_quotes(char *line);
+char		**ft_split(char const *s, char c);
+char		**ft_split_with_quotes(char const *s, char c);
+char		*cleaning_str(char *str);
+int			new_value_to_malloc(char *str);
+char		*copy_str(char *str, int mall);
+void		new_node(t_token **token, char *arg);
+void		new_node_env(t_expand **exp, char *arg);
+t_token		*find_last_node(t_token *token);
+t_expand	*find_last_node_env(t_expand *exp);
+char		*each_envp_line(char *env_line);
+void		clear_list(t_token **token);
+char		**get_envp_array(char **envp);
+void		add_env_variable(t_general *gen, char **envp);
+
 
 #endif

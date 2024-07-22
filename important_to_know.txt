@@ -48,6 +48,8 @@ bash: proton: command not found
 bash-3.2$ gdvnas
 bash: gdvnas: command not found
 bash-3.2$ '$'U''S''E''R'
+bash-3.2$ ""$""U""S""E""R""
+bash: USER: command not found
 
 
 
