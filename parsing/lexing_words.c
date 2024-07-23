@@ -73,7 +73,7 @@ char	*copy_str(char *str, int mall)
 	return (clean_str);
 }
 
-char	*cleaning_str(char *str)
+char	*cleaning_str(char *str, t_general *gen)
 {
 	int		i;
 	char	*clean_str;

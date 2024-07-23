@@ -57,7 +57,6 @@ typedef struct s_general
 	char		**env;
 	t_expand	*envir;
 	t_token		*tok;
-
 }				t_general;
 
 enum exec
@@ -78,29 +77,41 @@ enum exec
 
 // };
 
-int			print_errors(int status, char *str, t_general *gen);
-void		init_struct(t_general *gen);
-void		add_env_variable(t_general *gen, char **envp);
-int			lexing_words(t_general *gen, char *line);
-char		*get_clean_line(char *line);
-int			ft_get_words(char *line, t_general *gen);
-int			is_there_quotes(char *line);
-char		**ft_split(char const *s, char c);
-char		**ft_split_with_quotes(char const *s, char c);
-char		*cleaning_str(char *str);
-int			new_value_to_malloc(char *str);
-char		*copy_str(char *str, int mall);
-void		new_node(t_token **token, char *arg, t_general *gen);
-int			find_dollar(char *arg);
-void		fill_token_args(t_token *new_node, char *arg, t_general *gen);
-int			should_this_execute(char *arg);
-void		new_node_env(t_expand **exp, char *arg);
+int	print_errors(int status, char *str, t_general *gen);
+int	new_value_to_malloc(char *str);
+int	lexing_words(t_general *gen, char *line);
+int	ft_get_words(char *line, t_general *gen);
+int	is_there_quotes(char *line);
+int	find_dollar(char *arg);
+int	should_this_execute(char *arg);
+
+
+
+
+void	init_struct(t_general *gen);
+void	add_env_variable(t_general *gen, char **envp);
+void	new_node(t_token **token, char *arg, t_general *gen);
+void	fill_token_args(t_token *new_node, char *arg, t_general *gen);
+void	new_node_env(t_expand **exp, char *arg);
+void	clear_list(t_token **token);
+void	add_env_variable(t_general *gen, char **envp);
+
+
+
+
+char	*get_clean_line(char *line);
+char	**ft_split(char const *s, char c);
+char	**ft_split_with_quotes(char const *s, char c);
+char	*cleaning_str(char *str, t_general *gen);
+char	*copy_str(char *str, int mall);
+char	*each_envp_line(char *env_line);
+char	**get_envp_array(char **envp);
+
+
+
+
 t_token		*find_last_node(t_token *token);
 t_expand	*find_last_node_env(t_expand *exp);
-char		*each_envp_line(char *env_line);
-void		clear_list(t_token **token);
-char		**get_envp_array(char **envp);
-void		add_env_variable(t_general *gen, char **envp);
 
 
 #endif

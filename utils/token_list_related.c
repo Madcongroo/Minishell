@@ -21,7 +21,7 @@ int	find_dollar_n_quotes(char *arg)
 	while (arg[++i])
 	{
 		if (arg[i] == 34 || arg[i] == 39)
-			flag += 1;
+			flag += 10;
 		if (arg[i] == '$')
 			flag += 1;
 	}
@@ -62,11 +62,58 @@ int		should_this_execute(char *arg)
 	
 }
 
+char	*compare_env_variale(char *arg, char **env)
+{
+	int		i;
+	int		j;
+	char	*new_line;
+	int		len;
+
+	i = -1;
+	len = 0;
+	while (env[++i])
+	{
+		j = 0;
+		while(env[i][j] == arg[j])
+			j++;
+		if (env[i][j] == '=')
+		{
+			j++;
+			len = ft_strlen(env[i] + j)
+			new_line = ft_strdup(env[i] + j);
+			return (new_line)
+		}
+	}
+	return (0);
+}
+
+char	*could_expand(char *arg, t_general *gen)
+{
+	int		i;
+	int		exp;
+	char	*new_arg;
+
+	i = 0;
+	while (arg[i] != '$')
+		i++;
+	i++;
+	 = compare_env_variable(arg + i, gen->env);
+	if (exp > 0)
+		new_arg = replace
+	
+}
+
 void	fill_token_args(t_token *new_node, char *arg, t_general *gen)
 {
-	if (!find_dollar_n_quotes(arg))
+	int	trigger;
+
+	trigger = find_dollar_n_quotes(arg);
+	if (trigger == 0)
 		new_node->arg = arg;
-	
+	else if (trigger < 20 && trigger > 0)
+		new_node->arg = could_expand(arg, gen);
+	else
+		new_node->arg = cleaning_str(arg, gen);
 	new_node->enum_exec = type_of_token(arg);
 	new_node->to_execute = should_this_execute(arg);
 }
