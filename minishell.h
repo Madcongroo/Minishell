@@ -34,6 +34,7 @@
 //display si elle est a 0
 typedef struct s_token
 {
+	// struct s_token	*prev;
 	char			*arg;
 	int				to_execute;
 	int				enum_exec;
@@ -89,7 +90,10 @@ char		**ft_split_with_quotes(char const *s, char c);
 char		*cleaning_str(char *str);
 int			new_value_to_malloc(char *str);
 char		*copy_str(char *str, int mall);
-void		new_node(t_token **token, char *arg);
+void		new_node(t_token **token, char *arg, t_general *gen);
+int			find_dollar(char *arg);
+void		fill_token_args(t_token *new_node, char *arg, t_general *gen);
+int			should_this_execute(char *arg);
 void		new_node_env(t_expand **exp, char *arg);
 t_token		*find_last_node(t_token *token);
 t_expand	*find_last_node_env(t_expand *exp);

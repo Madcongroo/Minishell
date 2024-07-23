@@ -25,29 +25,21 @@ static	size_t	ft_wordcount(const char *s, char c)
 	return (wcnt);
 }
 
-static	char	*ft_printwords(const char *s, char c, size_t word)
+static	char	*ft_printwords(const char *s,  size_t word)
 {
 	size_t	j;
+	size_t	i;
 	char	*str;
 
 	j = 0;
-	str = (char *)malloc(sizeof(char) * word + 1);
+	i = -1;
+	str = (char *)malloc(sizeof(char) * (word + 1));
 	if (!str)
 		return (NULL);
-	while (*s != '\0')
+	while (++i < word)
 	{
-		while (*s != c && *s)
-		{
-			str[j] = *s;
-			j++;
-			s++;
-		}
-		if (*s - 1 != c && (*s == c || *s == '\0'))
-		{
-			str[j] = '\0';
-			return (str);
-		}
-		s++;
+		str[j] = s[i];
+		j++;
 	}
 	str[j] = '\0';
 	return (str);
@@ -68,7 +60,7 @@ static	char	**ft_wordlength(char **str, const char *s, char c, size_t j)
 			sep++;
 		while (s[sep + word] != c && s[sep + word])
 			word++;
-		str[i] = ft_printwords(s + sep, c, word);
+		str[i] = ft_printwords(s + sep, word);
 		sep += word;
 		i++;
 	}

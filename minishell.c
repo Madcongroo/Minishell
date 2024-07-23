@@ -102,12 +102,12 @@ int	main(int argc, char **argv, char **envp)
 
 	if (argc != 1 && !argv[0])
 		return (print_errors(1, "Wrong number of arguments\n", &gen));
+	init_struct(&gen);
+	add_env_variable(&gen, envp);
 	while (1)
 	{
 		line = readline("Minishell$ ");
 		add_history(line);
-		init_struct(&gen);
-		add_env_variable(&gen, envp);
 		if (lexing_words(&gen, line))
 			return (1);
 		// read_n_classify(&token);

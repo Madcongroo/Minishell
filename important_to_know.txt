@@ -52,4 +52,6 @@ bash-3.2$ ""$""U""S""E""R""
 bash: USER: command not found
 
 
+les commandes s executent automatiquement quand elles sont entourees de quotes, simple ou double
+les arguements aussi
 

@@ -134,7 +134,7 @@ int	ft_get_words(char *line, t_general *gen)
 	if (array)
 	{
 		while (array[++i])
-			new_node(&gen->tok, array[i]);
+			new_node(&gen->tok, array[i], gen);
 	}
 	else
 		return (1);

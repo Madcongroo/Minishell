@@ -63,7 +63,8 @@ static	char	*ft_printwords(const char *s, size_t word)
 		j++;
 	}
 	str[j] = '\0';
-	return (cleaning_str(str));
+	// return (cleaning_str(str));
+	return (str);
 }
 
 static	char	**ft_wordlength(char **str, const char *s, char c, size_t j)
@@ -108,17 +109,6 @@ static	void	ft_free(char **str, size_t j)
 	free(str);
 }
 
-// void	print_split(char **str)
-// {
-// 	int	i;
-
-// 	i = -1;
-// 	while (str[++i])
-// 	{
-// 		printf("%s\n", str[i]);
-// 	}
-// }
-
 char	**ft_split_with_quotes(char const *s, char c)
 {
 	size_t	j;
@@ -134,6 +124,5 @@ char	**ft_split_with_quotes(char const *s, char c)
 	if (!str)
 		ft_free(str, j);
 	str[j] = NULL;
-	// print_split(str);
 	return (str);
 }
