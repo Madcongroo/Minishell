@@ -73,21 +73,59 @@ char	*copy_str(char *str, int mall)
 	return (clean_str);
 }
 
+int	should_it_be_trandormed(char *str, t_general *gen)
+{
+	char	c;
+	int		i;
+	int		dol_i;
+	int		j;
+
+	i = 0;
+	while (str[i] != '$')
+		i++;
+	dol_i = i;
+	while (gen->envir)
+	{
+		j = -1;
+		i = dol_i;
+		while (str[i] == gen->envir->env[++j])
+		{
+			
+		}
+		gen->envir = gen->envir->next;
+	}
+}
+
+char	*handle_quoted_dollar(char *str, t_general *gen)
+{
+	char	c;
+	int		i;
+	int		transform;
+
+	transform = should_it_be_transformed(str);
+}
+
 char	*cleaning_str(char *str, t_general *gen)
 {
 	int		i;
 	char	*clean_str;
 	int		mall;
 
-	i = 0;
-	while (str[i] != 34 && str[i] != 39 && str[i] != '\0')
-		i++;
-	if (str[i] == '\0')
-		return (str);
-	mall = new_value_to_malloc(str);
-	clean_str = copy_str(str, mall);
-	if (!clean_str)
-		return (NULL);
+	i = -1;
+	while (str[++i])
+	{
+		if (str[i] == '$')
+			break;
+	}
+	if (str[i] == '$')
+		handle_quoted_dollar(str, gen);
+	else
+	{
+		mall = new_value_to_malloc(str);
+		clean_str = copy_str(str, mall);
+		if (!clean_str)
+			return (NULL);
+	}
 	free(str);
 	return (clean_str);
 }
@@ -166,19 +204,9 @@ char	*get_clean_line(char *line)
 	return (n_line);
 }
 
-// char	*keep_if_dollar(char *line)
-// {
-// 	char	*new_line;
-// 	int		n;
-
-// 	n = ft_strlen(line);
-// 	ft_strnstr(line, ""$USER"", n);
-// }
-
 int	lexing_words(t_general *gen, char *line)
 {
 	char	*clean_line;
-	// char	*dollared_line;
 
 	if (!line)
 		return (1);
@@ -188,8 +216,5 @@ int	lexing_words(t_general *gen, char *line)
 	free(line);
 	if (ft_get_words(clean_line, gen))
 		return (1);
-	// dollared_line = keep_if_dollar(clean_line);
-	// if (clean_list(tokens))
-	// 	return (1);
 	return (0);
 }

@@ -55,3 +55,9 @@ bash: USER: command not found
 les commandes s executent automatiquement quand elles sont entourees de quotes, simple ou double
 les arguements aussi
 
+bash-3.2$ var=asdfasjdfhaksdh
+bash-3.2$ $var
+bash: asdfasjdfhaksdh: command not found
+bash-3.2$ var="echo salut" | $var
+bash: asdfasjdfhaksdh: command not found
+

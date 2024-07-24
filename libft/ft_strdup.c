@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bproton <bproton@student.42.fr>            +#+  +:+       +#+        */
+/*   By: proton <proton@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 14:12:56 by bproton           #+#    #+#             */
-/*   Updated: 2023/10/31 12:13:15 by bproton          ###   ########.fr       */
+/*   Updated: 2024/07/23 17:49:46 by proton           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ char	*ft_strdup(const char *s)
 	if (!s)
 		return (NULL);
 	if (ns == NULL)
-		return (NULL);
+		exit (1);
 	ft_strlcpy((char *)ns, s, len);
 	return ((char *)ns);
 }

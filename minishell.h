@@ -30,20 +30,27 @@
 
 
 
-//to execute est une variable qui est a 1 si il faut executer ce quil y a a l interieur et 
-//display si elle est a 0
+// to execute est une variable qui est a 1 si il faut executer ce quil y a a l interieur et 
+// display si elle est a 0
+
+// la varibale to split est juste pour savoir si je dois split les args dans le cas ou une
+// varibale cree a un espace a l interieur (var="echo salut") et que je dois donc creer un autre node pour pouvoir
+// executer la commande (si to_split == 1 il faut que je split en deux node)
+
 typedef struct s_token
 {
 	// struct s_token	*prev;
 	char			*arg;
-	int				to_execute;
+	int				to_split;
 	int				enum_exec;
 	int				fd_in;
 	int				fd_out;
 	struct s_token	*next;
 }				t_token;
 
-//type est le type de variable, variable d environnement = 0 ou expand = 1
+// type est le type de variable, variable d environnement = 0 ou expand = 1 cachee = 3
+// commande cachee est un expend local qui n apparait pas dans la varibale d environnemnt
+
 typedef struct s_expand
 {
 	int				type;
@@ -106,6 +113,8 @@ char	*cleaning_str(char *str, t_general *gen);
 char	*copy_str(char *str, int mall);
 char	*each_envp_line(char *env_line);
 char	**get_envp_array(char **envp);
+char	*could_expand(char *arg, t_general *gen, t_token *new_node);
+char	*compare_env_variale(char *arg, t_general *gen);
 
 
 

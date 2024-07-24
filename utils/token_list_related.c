@@ -28,79 +28,75 @@ int	find_dollar_n_quotes(char *arg)
 	return (flag);
 }
 
-int	is_a_redir(char *arg)
-{
-	int	len;
+// int	is_a_redir(char *arg)
+// {
+// 	int	len;
 
-	len = ft_strlen(arg);
-	if (len == 1)
-	{
+// 	len = ft_strlen(arg);
+// 	if (len == 1)
+// 	{
 
-	}
-}
+// 	}
+// }
 
-int		type_of_token(char *arg)
-{
-	int	i;
+// int		type_of_token(char *arg)
+// {
+// 	int	i;
 
-	i = -1;
-	if (is_a_redir(arg))
-	{
+// 	i = -1;
+// 	if (is_a_redir(arg))
+// 	{
 
-	}
-	while (arg[++i])
-	{
-		if ()
-	}
-}
+// 	}
+// 	while (arg[++i])
+// 	{
+// 		if ()
+// 	}
+// }
 
-int		should_this_execute(char *arg)
-{
-	int	i;
-	int	flag;
-
-	
-}
-
-char	*compare_env_variale(char *arg, char **env)
+char	*compare_env_variale(char *arg, t_general *gen)
 {
 	int		i;
-	int		j;
 	char	*new_line;
 	int		len;
 
-	i = -1;
 	len = 0;
-	while (env[++i])
+	while (gen->envir)
 	{
-		j = 0;
-		while(env[i][j] == arg[j])
-			j++;
-		if (env[i][j] == '=')
+		i = 0;
+		while(gen->envir->env[i] == arg[i])
+			i++;
+		if (gen->envir->env[i] == '=')
 		{
-			j++;
-			len = ft_strlen(env[i] + j)
-			new_line = ft_strdup(env[i] + j);
-			return (new_line)
+			i++;
+			free(arg);
+			new_line = ft_strdup(gen->envir->env + i);
+			return (new_line);
 		}
+		gen->envir = gen->envir->next;
 	}
-	return (0);
+	new_line = ft_strdup("");
+	free(arg);
+	return (new_line);
 }
 
-char	*could_expand(char *arg, t_general *gen)
+char	*could_expand(char *arg, t_general *gen, t_token *new_node)
 {
 	int		i;
-	int		exp;
 	char	*new_arg;
 
 	i = 0;
 	while (arg[i] != '$')
 		i++;
 	i++;
-	 = compare_env_variable(arg + i, gen->env);
-	if (exp > 0)
-		new_arg = replace
-	
+	new_arg = compare_env_variable(arg + i, gen->envir);
+	i = -1;
+	while (new_arg[++i])
+	{
+		if (new_arg[i] == ' ')
+			new_node->to_split = 1;
+	}
+	return (new_arg);
 }
 
 void	fill_token_args(t_token *new_node, char *arg, t_general *gen)
@@ -108,14 +104,14 @@ void	fill_token_args(t_token *new_node, char *arg, t_general *gen)
 	int	trigger;
 
 	trigger = find_dollar_n_quotes(arg);
+	new_node->to_split = 0;
 	if (trigger == 0)
 		new_node->arg = arg;
 	else if (trigger < 20 && trigger > 0)
-		new_node->arg = could_expand(arg, gen);
+		new_node->arg = could_expand(arg, gen, new_node);
 	else
 		new_node->arg = cleaning_str(arg, gen);
 	new_node->enum_exec = type_of_token(arg);
-	new_node->to_execute = should_this_execute(arg);
 }
 
 
