@@ -66,7 +66,7 @@ char	*compare_env_variale(char *arg, t_general *gen)
 		i = 0;
 		while(gen->envir->env[i] == arg[i])
 			i++;
-		if (gen->envir->env[i] == '=')
+		if (gen->envir->env[i] == '=' && arg[i] == '=')
 		{
 			i++;
 			free(arg);

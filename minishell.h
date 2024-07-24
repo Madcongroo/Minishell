@@ -70,12 +70,12 @@ enum exec
 {
 	CMD = 1,
 	ARG = 2,
-	REDIR = 3,
-	PIPE = 4,
-	HERE_DOC = 6,
-	EXPORT = 7,
-	SIMPLE_QUOTE = 8,
-	DOUBLE_QUOTE = 9
+	REDIR = 4,
+	PIPE = 8,
+	HERE_DOC = 16,
+	EXPORT = 32,
+	SIMPLE_QUOTE = 64,
+	DOUBLE_QUOTE = 128
 };
 
 // enum pour le status est pour savoir dans quel endroit se trouve misihell
