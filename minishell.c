@@ -26,20 +26,24 @@
 // 	}
 // }
 
-char	*each_envp_line(char *env_line)
+/*change la liste chainee de la variable d environnement : mettre deux string une pour le "nom"
+ex : USER= , et une pour la valeur qui est ce qui suit le nom*/
+
+char	*each_envp_line(char *env_line, int name)
 {
 	int		i;
 	char	*new_line;
 
-	i = ft_strlen(env_line);
-	new_line = (char *)malloc(sizeof(char) * (i + 1));
-	if (!new_line)
-		exit (1);
-	i = -1;
-	while (env_line[++i])
-		new_line[i] = env_line[i];
-	new_line[i] = '\0';
-	// printf("%s\n", new_line);
+	i = 0;
+	if (name == 1)
+		new_line = ft_strdup(env_line);
+	else
+	{
+		while (env_line[i] != '=')
+			i++;
+		i++;
+		new_line = ft_strdup(env_line + i);
+	}
 	return (new_line);
 }
 
@@ -57,21 +61,41 @@ char	**get_envp_array(char **envp)
 		exit (1);
 	i = -1;
 	while (++i < j)
-		new_env[i] = each_envp_line(envp[i]);
+		new_env[i] = each_envp_line(envp[i], 1);
 	return (new_env);
+}
+
+char	*get_name(char *envp, t_general *gen)
+{
+	int		i;
+	char	*name;
+
+	i = 0;
+	while (envp[i] != '=')
+		i++;
+	name = (char *)malloc(sizeof(char) * i);
+	if (!name)
+		exit (1);
+	i = -1;
+	while (envp[++i] != '=')
+		name[i] = envp[i];
+	name[i] = '\0';
+	return (name);
 }
 
 void	add_env_variable(t_general *gen, char **envp)
 {
 	char	*new_env;
+	char	*name;
 	int		i;
 
 	gen->env = get_envp_array(envp);
 	i = -1;
 	while (envp[++i])
 	{
-		new_env = each_envp_line(envp[i]);
-		new_node_env(&gen->envir, new_env);
+		name = get_name(envp[i], gen);
+		new_env = each_envp_line(envp[i], 0);
+		new_node_env(&gen->envir, new_env, name);
 	}
 }
 
@@ -106,7 +130,7 @@ int	main(int argc, char **argv, char **envp)
 	add_env_variable(&gen, envp);
 	while (1)
 	{
-		line = readline("Minishell$ ");
+		line = readline("minishell$ ");
 		add_history(line);
 		if (lexing_words(&gen, line))
 			return (1);

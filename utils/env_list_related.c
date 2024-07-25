@@ -19,13 +19,14 @@ t_expand	*find_last_node_env(t_expand *exp)
 	return (temp);
 }
 
-void	new_node_env(t_expand **exp, char *arg)
+void	new_node_env(t_expand **exp, char *arg, char *name)
 {
 	t_expand	*new_node;
 
 	new_node = (t_expand *)malloc(sizeof(t_expand));
 	if (!new_node)
-		return ;	
+		return ;
+	new_node->name = name;
 	new_node->env = arg;
 	if (!(*exp))
 		(*exp) = new_node;

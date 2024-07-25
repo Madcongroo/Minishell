@@ -50,10 +50,12 @@ typedef struct s_token
 
 // type est le type de variable, variable d environnement = 0 ou expand = 1 cachee = 3
 // commande cachee est un expend local qui n apparait pas dans la varibale d environnemnt
+// name est une string qui contient le nom avant le (=) ex : USER, PATH, SHLVL etc.
 
 typedef struct s_expand
 {
 	int				type;
+	char			*name;
 	char			*env;
 	struct s_expand	*next;
 }				t_expand;
@@ -91,6 +93,7 @@ int	ft_get_words(char *line, t_general *gen);
 int	is_there_quotes(char *line);
 int	find_dollar(char *arg);
 int	should_this_execute(char *arg);
+int	check_if_quoted(char *str);
 
 
 
@@ -111,7 +114,7 @@ char	**ft_split(char const *s, char c);
 char	**ft_split_with_quotes(char const *s, char c);
 char	*cleaning_str(char *str, t_general *gen);
 char	*copy_str(char *str, int mall);
-char	*each_envp_line(char *env_line);
+char	*each_envp_line(char *env_line, int name);
 char	**get_envp_array(char **envp);
 char	*could_expand(char *arg, t_general *gen, t_token *new_node);
 char	*compare_env_variale(char *arg, t_general *gen);

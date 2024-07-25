@@ -75,7 +75,6 @@ char	*copy_str(char *str, int mall)
 
 int	could_it_be_trandormed(char *str, t_general *gen)
 {
-	char	c;
 	int		i;
 	int		dol_i;
 	int		j;
@@ -83,35 +82,89 @@ int	could_it_be_trandormed(char *str, t_general *gen)
 	i = 0;
 	while (str[i] != '$')
 		i++;
+	i++;
 	dol_i = i;
 	while (gen->envir)
 	{
 		j = -1;
 		i = dol_i;
-		while (str[i] == gen->envir->env[++j])
+		while (str[i] == gen->envir->name[++j])
 			i++;
-		if (str[i] == '=' && gen->envir->env[j] == '=')
+		if ((str[i] == 34 || str[i] == 39 || str[i] == '\0') && gen->envir->name[j] == '\0')
 			return (1);
 		gen->envir = gen->envir->next;
 	}
 	return (0);
 }
-// check_if_quoted == 0 : double quoted, 1 : single quoted
-char	*handle_quoted_dollar(char *str, t_general *gen)
+
+int	check_if_quoted(char *str)
+{
+	int		i;
+	char	c;
+	int		dollar;
+
+	i = -1;
+	while (str[++i])
+	{
+		if (str[i] == 34 || str[i] == 39)
+		{
+			c = str[i];
+			while (str[++i] != c)
+			{
+				if (str[i] == '$')
+					dollar = 1;
+			}
+		}
+		if (dollar == 1 && c == 34)
+			return (1);
+		else if (dollar == 1 && c == 39)
+			return (2)
+	}
+	return (3);
+}
+
+char	*expand_variable(char *str, t_general *gen)
 {
 	char	c;
+	int		i;
+
+	i = -1;
+	while (str[++i])
+	{
+		if (str[i] == 34 || str[i] == 39)
+		{
+			
+		}
+	}
+}
+
+/*check_if_quoted == 1 if single quoted : 2 if double quoted : 3 if unquoted
+
+check if the dollar is quoted if the dollar is single quoted write the var untransformed
+and unquoted
+if the dollar is unquoted ignore the dollar create a token by what follows the dollar*/
+char	*handle_quoted_dollar(char *str, t_general *gen)
+{
 	int		i;
 	int		transform;
 	char	*new_str;
 
-	transform = could_it_be_transformed(str);
+	transform = could_it_be_transformed(str, gen);
+	i = check_if_quoted(str);
 	if (transform == 1)
 	{
-		if (check_if_quoted(str, gen) == 0)
+		if (i == 2 || i == 3)
 			new_str = expand_variable(str, gen);
+		else
+			new_str = cleaning_str(str, gen);
 	}
-	// check if the dollar is quoted if the dollar is quoted write the var untransformed and unquoted
-	// if the dollar is unquoted ignore the dollar create a token by what follows the dollar
+	else if (transform == 0)
+	{
+		if (i == 1 || i == 2)
+			new_str = cleaning_str(str, gen);
+		else
+			take_dollar_off(str, gen);
+	}
 }
 
 char	*cleaning_str(char *str, t_general *gen)
