@@ -73,7 +73,7 @@ char	*copy_str(char *str, int mall)
 	return (clean_str);
 }
 
-int	should_it_be_trandormed(char *str, t_general *gen)
+int	could_it_be_trandormed(char *str, t_general *gen)
 {
 	char	c;
 	int		i;
@@ -89,20 +89,29 @@ int	should_it_be_trandormed(char *str, t_general *gen)
 		j = -1;
 		i = dol_i;
 		while (str[i] == gen->envir->env[++j])
-		{
-			
-		}
+			i++;
+		if (str[i] == '=' && gen->envir->env[j] == '=')
+			return (1);
 		gen->envir = gen->envir->next;
 	}
+	return (0);
 }
-
+// check_if_quoted == 0 : double quoted, 1 : single quoted
 char	*handle_quoted_dollar(char *str, t_general *gen)
 {
 	char	c;
 	int		i;
 	int		transform;
+	char	*new_str;
 
-	transform = should_it_be_transformed(str);
+	transform = could_it_be_transformed(str);
+	if (transform == 1)
+	{
+		if (check_if_quoted(str, gen) == 0)
+			new_str = expand_variable(str, gen);
+	}
+	// check if the dollar is quoted if the dollar is quoted write the var untransformed and unquoted
+	// if the dollar is unquoted ignore the dollar create a token by what follows the dollar
 }
 
 char	*cleaning_str(char *str, t_general *gen)
