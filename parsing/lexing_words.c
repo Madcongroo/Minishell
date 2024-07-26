@@ -73,7 +73,7 @@ char	*copy_str(char *str, int mall)
 	return (clean_str);
 }
 
-int	could_it_be_trandormed(char *str, t_general *gen)
+int	could_it_be_transformed(char *str, t_general *gen)
 {
 	int		i;
 	int		dol_i;
@@ -136,7 +136,7 @@ t_expand	*find_concerned_node(char *str, t_expand *exp)
 		while (exp->name[i] == str[i])
 			i++;
 		round++;
-		if (exp->name[i] == '\0' && (str[i] == ' ' || str[i] == '\0' 
+		if (exp->name[i] == '\0' && (str[i] == ' ' || str[i] == '\0'
 			|| str[i] == 34 || str[i] == 39))
 				return (exp);
 		exp = exp->next;
@@ -188,12 +188,23 @@ char	*take_dollar_off(char *str, t_general *gen)
 {
 	char	*new;
 	int		i;
+	int		j;
 
 	i = ft_strlen(str);
 	new = (char *)malloc(sizeof(char) * i);
 	if (!new)
 		exit (1);
-	
+	i = 0;
+	j = -1;
+	while (str[i])
+	{
+		if (str[i] == '$')
+			i++;
+		new[++j] = str[i];
+		i++;
+	}
+	new[j] = '\0';
+	return (cleaning_str(new, gen, 0));
 }
 
 /*check_if_quoted == 1 if single quoted : 2 if double quoted : 3 if unquoted
@@ -216,13 +227,14 @@ char	*handle_quoted_dollar(char *str, t_general *gen)
 		else
 			new_str = cleaning_str(str, gen, 0);
 	}
-	else if (transform == 0)
+	else
 	{
 		if (i == 1 || i == 2)
 			new_str = cleaning_str(str, gen, 0);
 		else
-			take_dollar_off(str, gen);
+			new_str = take_dollar_off(str, gen);
 	}
+	return (new_str);
 }
 
 char	*cleaning_str(char *str, t_general *gen, int doll)
@@ -233,15 +245,7 @@ char	*cleaning_str(char *str, t_general *gen, int doll)
 
 	i = -1;
 	if (doll == 1)
-	{
-		while (str[++i])
-		{
-			if (str[i] == '$')
-				break;
-		}
-		if (str[i] == '$')
-			handle_quoted_dollar(str, gen);
-	}
+		clean_str = handle_quoted_dollar(str, gen);
 	else
 	{
 		mall = new_value_to_malloc(str);
@@ -249,7 +253,7 @@ char	*cleaning_str(char *str, t_general *gen, int doll)
 		if (!clean_str)
 			return (NULL);
 	}
-	free(str);
+	// free(str);
 	return (clean_str);
 }
 

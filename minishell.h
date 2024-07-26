@@ -95,6 +95,7 @@ int	find_dollar(char *arg);
 int	should_this_execute(char *arg);
 int	check_if_quoted(char *str);
 int	get_good_len(char *str, t_general *gen);
+int	could_it_be_transformed(char *str, t_general *gen);
 
 
 
@@ -103,7 +104,7 @@ void	init_struct(t_general *gen);
 void	add_env_variable(t_general *gen, char **envp);
 void	new_node(t_token **token, char *arg, t_general *gen);
 void	fill_token_args(t_token *new_node, char *arg, t_general *gen);
-void	new_node_env(t_expand **exp, char *arg, int name);
+void	new_node_env(t_expand **exp, char *arg, char *name);
 void	clear_list(t_token **token);
 void	add_env_variable(t_general *gen, char **envp);
 
@@ -118,7 +119,8 @@ char	*copy_str(char *str, int mall);
 char	*each_envp_line(char *env_line, int name);
 char	**get_envp_array(char **envp);
 char	*could_expand(char *arg, t_general *gen, t_token *new_node);
-char	*compare_env_variale(char *arg, t_general *gen);
+char	*compare_env_variable(char *arg, t_general *gen);
+char	*get_name(char *envp);
 
 
 

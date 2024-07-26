@@ -65,7 +65,7 @@ char	**get_envp_array(char **envp)
 	return (new_env);
 }
 
-char	*get_name(char *envp, t_general *gen)
+char	*get_name(char *envp)
 {
 	int		i;
 	char	*name;
@@ -93,7 +93,7 @@ void	add_env_variable(t_general *gen, char **envp)
 	i = -1;
 	while (envp[++i])
 	{
-		name = get_name(envp[i], gen);
+		name = get_name(envp[i]);
 		new_env = each_envp_line(envp[i], 0);
 		new_node_env(&gen->envir, new_env, name);
 	}
@@ -110,6 +110,18 @@ void	test_read_list(t_token *token)
 		}
 	}
 }
+
+// static void	test_read_list_env(t_expand *gen)
+// {
+// 	if (gen)
+// 	{
+// 		while (gen)
+// 		{
+// 			printf("%s\n", gen->env);
+// 			gen = gen->next;
+// 		}
+// 	}
+// }
 
 void	init_struct(t_general *gen)
 {
@@ -128,6 +140,7 @@ int	main(int argc, char **argv, char **envp)
 		return (print_errors(1, "Wrong number of arguments\n", &gen));
 	init_struct(&gen);
 	add_env_variable(&gen, envp);
+	// test_read_list_env(gen.envir);
 	while (1)
 	{
 		line = readline("minishell$ ");

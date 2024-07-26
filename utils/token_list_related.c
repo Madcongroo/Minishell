@@ -54,7 +54,7 @@ int	find_dollar_n_quotes(char *arg)
 // 	}
 // }
 
-char	*compare_env_variale(char *arg, t_general *gen)
+char	*compare_env_variable(char *arg, t_general *gen)
 {
 	int		i;
 	char	*new_line;
@@ -69,16 +69,16 @@ char	*compare_env_variale(char *arg, t_general *gen)
 		i = 0;
 		while(gen->envir->name[i] == arg[i])
 			i++;
-		if (gen->envir->name[i] == '\0' && arg[i] != ' ' && arg[i] != '\0')
+		if (gen->envir->name[i] == '\0')
 		{
-			free(arg);
+			// free(arg);
 			new_line = ft_strdup(gen->envir->env);
 			return (new_line);
 		}
 		gen->envir = gen->envir->next;
 	}
 	new_line = ft_strdup(""); // a voir plus tard si ca fonctionne mais pas sur
-	free(arg);
+	// free(arg);
 	return (new_line);
 }
 
@@ -91,7 +91,8 @@ char	*could_expand(char *arg, t_general *gen, t_token *new_node)
 	while (arg[i] != '$')
 		i++;
 	i++;
-	new_arg = compare_env_variable(arg + i, gen->envir);
+	new_arg = compare_env_variable(arg + i, gen);
+	printf("new arg = %s\n", new_arg);
 	i = -1;
 	while (new_arg[++i])
 	{
@@ -113,7 +114,7 @@ void	fill_token_args(t_token *new_node, char *arg, t_general *gen)
 		new_node->arg = could_expand(arg, gen, new_node);
 	else
 		new_node->arg = cleaning_str(arg, gen, 1);
-	new_node->enum_exec = type_of_token(arg);
+	// new_node->enum_exec = type_of_token(arg);
 }
 
 
