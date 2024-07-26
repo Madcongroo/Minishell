@@ -61,21 +61,23 @@ char	*compare_env_variale(char *arg, t_general *gen)
 	int		len;
 
 	len = 0;
+	i = 0;
+	if (arg[i] == '$' && arg[i + 1] == '\0')
+		return (arg);
 	while (gen->envir)
 	{
 		i = 0;
-		while(gen->envir->env[i] == arg[i])
+		while(gen->envir->name[i] == arg[i])
 			i++;
-		if (gen->envir->env[i] == '=' && arg[i] == '=')
+		if (gen->envir->name[i] == '\0' && arg[i] != ' ' && arg[i] != '\0')
 		{
-			i++;
 			free(arg);
-			new_line = ft_strdup(gen->envir->env + i);
+			new_line = ft_strdup(gen->envir->env);
 			return (new_line);
 		}
 		gen->envir = gen->envir->next;
 	}
-	new_line = ft_strdup("");
+	new_line = ft_strdup(""); // a voir plus tard si ca fonctionne mais pas sur
 	free(arg);
 	return (new_line);
 }
@@ -110,7 +112,7 @@ void	fill_token_args(t_token *new_node, char *arg, t_general *gen)
 	else if (trigger < 20 && trigger > 0)
 		new_node->arg = could_expand(arg, gen, new_node);
 	else
-		new_node->arg = cleaning_str(arg, gen);
+		new_node->arg = cleaning_str(arg, gen, 1);
 	new_node->enum_exec = type_of_token(arg);
 }
 

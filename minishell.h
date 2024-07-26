@@ -94,6 +94,7 @@ int	is_there_quotes(char *line);
 int	find_dollar(char *arg);
 int	should_this_execute(char *arg);
 int	check_if_quoted(char *str);
+int	get_good_len(char *str, t_general *gen);
 
 
 
@@ -102,7 +103,7 @@ void	init_struct(t_general *gen);
 void	add_env_variable(t_general *gen, char **envp);
 void	new_node(t_token **token, char *arg, t_general *gen);
 void	fill_token_args(t_token *new_node, char *arg, t_general *gen);
-void	new_node_env(t_expand **exp, char *arg);
+void	new_node_env(t_expand **exp, char *arg, int name);
 void	clear_list(t_token **token);
 void	add_env_variable(t_general *gen, char **envp);
 
@@ -112,7 +113,7 @@ void	add_env_variable(t_general *gen, char **envp);
 char	*get_clean_line(char *line);
 char	**ft_split(char const *s, char c);
 char	**ft_split_with_quotes(char const *s, char c);
-char	*cleaning_str(char *str, t_general *gen);
+char	*cleaning_str(char *str, t_general *gen, int doll);
 char	*copy_str(char *str, int mall);
 char	*each_envp_line(char *env_line, int name);
 char	**get_envp_array(char **envp);

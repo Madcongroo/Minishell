@@ -90,8 +90,9 @@ int	could_it_be_trandormed(char *str, t_general *gen)
 		i = dol_i;
 		while (str[i] == gen->envir->name[++j])
 			i++;
-		if ((str[i] == 34 || str[i] == 39 || str[i] == '\0') && gen->envir->name[j] == '\0')
-			return (1);
+		if ((str[i] == 34 || str[i] == 39 || str[i] == '\0' || str[i] == ' ')
+			&& gen->envir->name[j] == '\0')
+				return (1);
 		gen->envir = gen->envir->next;
 	}
 	return (0);
@@ -118,24 +119,81 @@ int	check_if_quoted(char *str)
 		if (dollar == 1 && c == 34)
 			return (1);
 		else if (dollar == 1 && c == 39)
-			return (2)
+			return (2);
 	}
 	return (3);
 }
 
+t_expand	*find_concerned_node(char *str, t_expand *exp)
+{
+	int	i;
+	int	round;
+
+	round = 0;
+	while (exp)
+	{
+		i = 0;
+		while (exp->name[i] == str[i])
+			i++;
+		round++;
+		if (exp->name[i] == '\0' && (str[i] == ' ' || str[i] == '\0' 
+			|| str[i] == 34 || str[i] == 39))
+				return (exp);
+		exp = exp->next;
+	}
+	return (exp);
+}
+
+int	get_good_len(char *str, t_general *gen)
+{
+	int len1;
+	int	len2;
+	int	len3;
+
+	len1 = ft_strlen(gen->envir->env);
+	len2 = ft_strlen(gen->envir->name);
+	len3 = ft_strlen(str);
+	return (len1 + (len3 - len2));
+}
+
 char	*expand_variable(char *str, t_general *gen)
 {
-	char	c;
 	int		i;
+	int		j;
+	int		len;
+	char	*new;
 
+	gen->envir = find_concerned_node(str, gen->envir);
+	len = get_good_len(str, gen);
+	new = (char *)malloc(sizeof(char) * len);
+	if (!new)
+		exit (1);
 	i = -1;
+	len = -1;
 	while (str[++i])
 	{
-		if (str[i] == 34 || str[i] == 39)
+		new[++len] = str[i];
+		if (str[i] == '$')
 		{
-			
+			j = -1;
+			while (gen->envir->env[++j])
+				new[len++] = gen->envir->env[j];
 		}
 	}
+	new[len] = '\0';
+	return (cleaning_str(new, gen, 0));
+}
+
+char	*take_dollar_off(char *str, t_general *gen)
+{
+	char	*new;
+	int		i;
+
+	i = ft_strlen(str);
+	new = (char *)malloc(sizeof(char) * i);
+	if (!new)
+		exit (1);
+	
 }
 
 /*check_if_quoted == 1 if single quoted : 2 if double quoted : 3 if unquoted
@@ -156,31 +214,34 @@ char	*handle_quoted_dollar(char *str, t_general *gen)
 		if (i == 2 || i == 3)
 			new_str = expand_variable(str, gen);
 		else
-			new_str = cleaning_str(str, gen);
+			new_str = cleaning_str(str, gen, 0);
 	}
 	else if (transform == 0)
 	{
 		if (i == 1 || i == 2)
-			new_str = cleaning_str(str, gen);
+			new_str = cleaning_str(str, gen, 0);
 		else
 			take_dollar_off(str, gen);
 	}
 }
 
-char	*cleaning_str(char *str, t_general *gen)
+char	*cleaning_str(char *str, t_general *gen, int doll)
 {
 	int		i;
 	char	*clean_str;
 	int		mall;
 
 	i = -1;
-	while (str[++i])
+	if (doll == 1)
 	{
+		while (str[++i])
+		{
+			if (str[i] == '$')
+				break;
+		}
 		if (str[i] == '$')
-			break;
+			handle_quoted_dollar(str, gen);
 	}
-	if (str[i] == '$')
-		handle_quoted_dollar(str, gen);
 	else
 	{
 		mall = new_value_to_malloc(str);
