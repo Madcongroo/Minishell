@@ -73,177 +73,11 @@ char	*copy_str(char *str, int mall)
 	return (clean_str);
 }
 
-int	could_it_be_transformed(char *str, t_general *gen)
-{
-	int		i;
-	int		dol_i;
-	int		j;
-
-	i = 0;
-	while (str[i] != '$')
-		i++;
-	i++;
-	dol_i = i;
-	while (gen->envir)
-	{
-		j = -1;
-		i = dol_i;
-		while (str[i] == gen->envir->name[++j])
-			i++;
-		if ((str[i] == 34 || str[i] == 39 || str[i] == '\0' || str[i] == ' ')
-			&& gen->envir->name[j] == '\0')
-				return (1);
-		gen->envir = gen->envir->next;
-	}
-	return (0);
-}
-
-int	check_if_quoted(char *str)
-{
-	int		i;
-	char	c;
-	int		dollar;
-
-	i = -1;
-	while (str[++i])
-	{
-		if (str[i] == 34 || str[i] == 39)
-		{
-			c = str[i];
-			while (str[++i] != c)
-			{
-				if (str[i] == '$')
-					dollar = 1;
-			}
-		}
-		if (dollar == 1 && c == 34)
-			return (1);
-		else if (dollar == 1 && c == 39)
-			return (2);
-	}
-	return (3);
-}
-
-t_expand	*find_concerned_node(char *str, t_expand *exp)
-{
-	int	i;
-	int	round;
-
-	round = 0;
-	while (exp)
-	{
-		i = 0;
-		while (exp->name[i] == str[i])
-			i++;
-		round++;
-		if (exp->name[i] == '\0' && (str[i] == ' ' || str[i] == '\0'
-			|| str[i] == 34 || str[i] == 39))
-				return (exp);
-		exp = exp->next;
-	}
-	return (exp);
-}
-
-int	get_good_len(char *str, t_general *gen)
-{
-	int len1;
-	int	len2;
-	int	len3;
-
-	len1 = ft_strlen(gen->envir->env);
-	len2 = ft_strlen(gen->envir->name);
-	len3 = ft_strlen(str);
-	return (len1 + (len3 - len2));
-}
-
-char	*expand_variable(char *str, t_general *gen)
-{
-	int		i;
-	int		j;
-	int		len;
-	char	*new;
-
-	gen->envir = find_concerned_node(str, gen->envir);
-	len = get_good_len(str, gen);
-	new = (char *)malloc(sizeof(char) * len);
-	if (!new)
-		exit (1);
-	i = -1;
-	len = -1;
-	while (str[++i])
-	{
-		new[++len] = str[i];
-		if (str[i] == '$')
-		{
-			j = -1;
-			while (gen->envir->env[++j])
-				new[len++] = gen->envir->env[j];
-		}
-	}
-	new[len] = '\0';
-	return (cleaning_str(new, gen, 0));
-}
-
-char	*take_dollar_off(char *str, t_general *gen)
-{
-	char	*new;
-	int		i;
-	int		j;
-
-	i = ft_strlen(str);
-	new = (char *)malloc(sizeof(char) * i);
-	if (!new)
-		exit (1);
-	i = 0;
-	j = -1;
-	while (str[i])
-	{
-		if (str[i] == '$')
-			i++;
-		new[++j] = str[i];
-		i++;
-	}
-	new[j] = '\0';
-	return (cleaning_str(new, gen, 0));
-}
-
-/*check_if_quoted == 1 if single quoted : 2 if double quoted : 3 if unquoted
-
-check if the dollar is quoted if the dollar is single quoted write the var untransformed
-and unquoted
-if the dollar is unquoted ignore the dollar create a token by what follows the dollar*/
-char	*handle_quoted_dollar(char *str, t_general *gen)
-{
-	int		i;
-	int		transform;
-	char	*new_str;
-
-	transform = could_it_be_transformed(str, gen);
-	i = check_if_quoted(str);
-	if (transform == 1)
-	{
-		if (i == 2 || i == 3)
-			new_str = expand_variable(str, gen);
-		else
-			new_str = cleaning_str(str, gen, 0);
-	}
-	else
-	{
-		if (i == 1 || i == 2)
-			new_str = cleaning_str(str, gen, 0);
-		else
-			new_str = take_dollar_off(str, gen);
-	}
-	return (new_str);
-}
-
 char	*cleaning_str(char *str, t_general *gen, int doll)
 {
-	int		i;
 	char	*clean_str;
 	int		mall;
 
-	i = -1;
 	if (doll == 1)
 		clean_str = handle_quoted_dollar(str, gen);
 	else
@@ -304,6 +138,45 @@ int	ft_get_words(char *line, t_general *gen)
 	else
 		return (1);
 	return (0);
+}
+
+int	handle_sep(char *line, int i)
+{
+	int	i;
+	int	mall;
+
+	i = -1;
+	mall = 0;
+	while (line[++i])
+	{
+		if (i > 0)
+		{
+			if (line[i] == '|' && line[i - 1] == ' ')
+
+		}
+	}
+}
+
+int	return_malloc_value(char *line)
+{
+	int	i;
+	int	j;
+	int	mall;
+
+	i = -1;
+	j = 0;
+	while (line[j] == ' ')
+		j++;
+	while (line[++i])
+	{
+		if (i > 0)
+		{
+			mall += handle_sep(line, i);
+
+		}
+	}
+
+	
 }
 
 char	*get_clean_line(char *line)

@@ -63,7 +63,6 @@ static	char	*ft_printwords(const char *s, size_t word)
 		j++;
 	}
 	str[j] = '\0';
-	// return (cleaning_str(str));
 	return (str);
 }
 

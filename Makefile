@@ -6,6 +6,7 @@ READLINE += -L$(HOME)/.brew/opt/readline/lib -lreadline
 LIBFT = libft
 SRCS =	minishell.c parsing/lexing_words.c utils/ft_split.c utils/ft_split_with_quotes.c \
 		Errors_gestion.c utils/token_list_related.c utils/env_list_related.c \
+		utils/expand_related.c \
 
 OBJECTS = $(SRCS:.c=.o)
 

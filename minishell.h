@@ -91,7 +91,7 @@ int	new_value_to_malloc(char *str);
 int	lexing_words(t_general *gen, char *line);
 int	ft_get_words(char *line, t_general *gen);
 int	is_there_quotes(char *line);
-int	find_dollar(char *arg);
+int	find_dollar_n_quotes(char *arg);
 int	should_this_execute(char *arg);
 int	check_if_quoted(char *str);
 int	get_good_len(char *str, t_general *gen);
@@ -120,6 +120,7 @@ char	*each_envp_line(char *env_line, int name);
 char	**get_envp_array(char **envp);
 char	*could_expand(char *arg, t_general *gen, t_token *new_node);
 char	*compare_env_variable(char *arg, t_general *gen);
+char	*handle_quoted_dollar(char *str, t_general *gen);
 char	*get_name(char *envp);
 
 
