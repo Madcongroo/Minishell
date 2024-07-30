@@ -152,7 +152,40 @@ int	handle_sep(char *line, int i)
 		if (i > 0)
 		{
 			if (line[i] == '|' && line[i - 1] == ' ')
+				mall += 1;
+			else if (line[i] == '<' && line[i - 1] == ' ')
+				mall += 1;
+			else if (line[i] == '>' && line[i - 1] == ' ')
+				mall += 1;
+		}
+		if (line[i] == '|' && line[i + 1] == ' ')
+				mall += 1;
+		else if (line[i] == '<' && line[i + 1] == ' ')
+				mall += 1;
+		else if (line[i] == '>' && line[i + 1] == ' ')
+				mall += 1;
+	}
+	return (mall_with_new_value(line, i, mall));
+}
 
+int	handle_special_char(char *line)
+{
+	int		i;
+	char	trigger;
+
+	i = -1;
+	while (line[++i])
+	{
+		if ((line[i] < 47 || line[i] > 58) && (line[i] < 65 || line[i] > 90)
+			&& (line[i] < 97 || line[i] > 122) && line[i] != ' ' && line[i] != '<'
+				&& line[i] != '>' && line[i] != '|')
+					return (-1);
+		if (line[i] == 34 || line[i] == 39)
+		{
+			trigger = line[i];
+			while (line[++i] != trigger)
+			{
+			}
 		}
 	}
 }
@@ -167,14 +200,9 @@ int	return_malloc_value(char *line)
 	j = 0;
 	while (line[j] == ' ')
 		j++;
-	while (line[++i])
-	{
-		if (i > 0)
-		{
-			mall += handle_sep(line, i);
-
-		}
-	}
+	if (handle_special_char(line) == -1)
+		return (-1);
+	mall += handle_sep(line, i);
 
 	
 }
@@ -186,12 +214,8 @@ char	*get_clean_line(char *line)
 	int		j;
 
 	i = 0;
-	j = 0;
-	while (line[j] == ' ')
-		j++;
-	while (line[i])
-		i++;
-	n_line = (char *)malloc(sizeof(char) * (i - j + 1));
+	j = return_malloc_value(line);
+	n_line = (char *)malloc(sizeof(char) * (j + 1));
 	if (!n_line)
 		return (NULL);
 	i = -1;
