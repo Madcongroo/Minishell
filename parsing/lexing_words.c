@@ -140,7 +140,21 @@ int	ft_get_words(char *line, t_general *gen)
 	return (0);
 }
 
-int	handle_sep(char *line, int i)
+int	mall_with_new_value(char *line, int mall)
+{
+	int	i;
+	int	j;
+
+	j = 0;
+	i = 0;
+	while (line[j] == ' ')
+		j++;
+	while (line[i])
+		i++;
+	return ((i - j) + mall);
+}
+
+int	handle_sep(char *line)
 {
 	int	i;
 	int	mall;
@@ -151,21 +165,21 @@ int	handle_sep(char *line, int i)
 	{
 		if (i > 0)
 		{
-			if (line[i] == '|' && line[i - 1] == ' ')
+			if (line[i] == '|' && line[i - 1] != ' ')
 				mall += 1;
-			else if (line[i] == '<' && line[i - 1] == ' ')
+			else if (line[i] == '<' && line[i - 1] != ' ')
 				mall += 1;
-			else if (line[i] == '>' && line[i - 1] == ' ')
+			else if (line[i] == '>' && line[i - 1] != ' ')
 				mall += 1;
 		}
-		if (line[i] == '|' && line[i + 1] == ' ')
+		if (line[i] == '|' && line[i + 1] != ' ')
 				mall += 1;
-		else if (line[i] == '<' && line[i + 1] == ' ')
+		else if (line[i] == '<' && line[i + 1] != ' ')
 				mall += 1;
-		else if (line[i] == '>' && line[i + 1] == ' ')
+		else if (line[i] == '>' && line[i + 1] != ' ')
 				mall += 1;
 	}
-	return (mall_with_new_value(line, i, mall));
+	return (mall_with_new_value(line, mall));
 }
 
 int	handle_special_char(char *line)
@@ -178,63 +192,54 @@ int	handle_special_char(char *line)
 	{
 		if ((line[i] < 47 || line[i] > 58) && (line[i] < 65 || line[i] > 90)
 			&& (line[i] < 97 || line[i] > 122) && line[i] != ' ' && line[i] != '<'
-				&& line[i] != '>' && line[i] != '|')
+				&& line[i] != '>' && line[i] != '|' && line[i] != '$' && line[i] != 34
+					&& line[i] != 39);
 					return (-1);
+		if (line[i] == '|' && line[i + 1] == '|')
+			return (-1);
 		if (line[i] == 34 || line[i] == 39)
 		{
 			trigger = line[i];
-			while (line[++i] != trigger)
-			{
-			}
+			i++;
+			while (line[i] != trigger)
+				i++;
 		}
 	}
+	return (0);
 }
 
-int	return_malloc_value(char *line)
-{
-	int	i;
-	int	j;
-	int	mall;
-
-	i = -1;
-	j = 0;
-	while (line[j] == ' ')
-		j++;
-	if (handle_special_char(line) == -1)
-		return (-1);
-	mall += handle_sep(line, i);
-
-	
-}
-
-char	*get_clean_line(char *line)
+char	*get_clean_line(char *line, int mall)
 {
 	int		i;
 	char	*n_line;
 	int		j;
+	int		quotes;
 
-	i = 0;
-	j = return_malloc_value(line);
-	n_line = (char *)malloc(sizeof(char) * (j + 1));
+	n_line = (char *)malloc(sizeof(char) * (mall + 2));
 	if (!n_line)
 		return (NULL);
 	i = -1;
+	j = 0;
 	while (line[++i])
 	{
-		n_line[i] = line[j];
-		j++;
+		if (line[i] == 34 || line[i] == 39)
+			
 	}
-	n_line[i] = '\0';
+	n_line[j] = '\0';
 	return (n_line);
 }
 
 int	lexing_words(t_general *gen, char *line)
 {
 	char	*clean_line;
+	int		mall;
 
 	if (!line)
 		return (1);
-	clean_line = get_clean_line(line);
+	if (handle_special_char(line) == -1)
+		return (-1);
+	mall = handle_sep(line);
+	clean_line = get_clean_line(line, mall);
 	if (!clean_line)
 		return (1);
 	free(line);

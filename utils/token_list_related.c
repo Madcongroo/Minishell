@@ -41,26 +41,15 @@ void	fill_token_args(t_token *new_node, char *arg, t_general *gen)
 {
 	int	trigger;
 
-	puts("1");
 	trigger = find_dollar_n_quotes(arg);
-	puts("2");
 	new_node->to_split = 0;
-	printf("%s\n", arg);
+	// printf("%s\n", arg);
 	if (trigger == 0)
-	{
-		puts("3");
 		new_node->arg = arg;
-	}
 	else if (trigger < 20 && trigger > 0)
-	{
-		puts("4");
 		new_node->arg = could_expand(arg, gen, new_node);
-	}
 	else
-	{
-		puts("5");
 		new_node->arg = cleaning_str(arg, gen, 1);
-	}
 	// new_node->enum_exec = type_of_token(arg);
 }
 

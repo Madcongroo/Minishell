@@ -111,7 +111,7 @@ void	add_env_variable(t_general *gen, char **envp);
 
 
 
-char	*get_clean_line(char *line);
+char	*get_clean_line(char *line, int mall);
 char	**ft_split(char const *s, char c);
 char	**ft_split_with_quotes(char const *s, char c);
 char	*cleaning_str(char *str, t_general *gen, int doll);
