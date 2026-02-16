@@ -1,4 +1,4 @@
-## Minishell (miniHELL)
+## Minishell
 
 `minishell` is a small Unix shell written in C.
 It reads a command line, tokenizes it (lexer), builds an AST (parser), and
