@@ -134,7 +134,7 @@ The execution flow is intentionally split into clear stages:
 
 ---
 
-## What you learn from this project
+## What i learned from this project
 
 - How a shell turns raw text into actions (lexer → parser → executor)
 - Process creation and program replacement (`fork`, `execve`, `waitpid`)
